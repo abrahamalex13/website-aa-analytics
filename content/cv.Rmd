@@ -1,0 +1,6 @@
+---
+title: About
+---
+
+```{r echo = FALSE, child = "C:\\Users\\Alex\\Documents\\startup\\resume\\resume.Rmd"}
+```
