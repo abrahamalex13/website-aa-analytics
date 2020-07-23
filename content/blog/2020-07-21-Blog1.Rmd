@@ -9,9 +9,9 @@ biblio-style: "apalike"
 link-citations: true
 ---
 
-```{r echo = FALSE}
-  publish_blog <- TRUE
-```
-
-```{r echo = FALSE, child = "C:\\Users\\Alex\\Documents\\startup\\ml-vs-trad\\doc\\var_selection_true_model_linear_small\\ML-vs-trad-linear-models-blog1.Rmd"}
-```
+<!-- # ```{r echo = FALSE} -->
+<!-- #   publish_blog <- TRUE -->
+<!-- # ``` -->
+<!-- #  -->
+<!-- # ```{r echo = FALSE, child = "C:\\Users\\Alex\\Documents\\startup\\ml-vs-trad\\doc\\var_selection_true_model_linear_small\\ML-vs-trad-linear-models-blog1.Rmd"} -->
+<!-- # ``` -->
