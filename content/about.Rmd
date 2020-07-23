@@ -1,5 +1,6 @@
 ---
 title: About
+showcomments: false
 ---
 
 ```{r echo = FALSE, child = "C:\\Users\\Alex\\Documents\\startup\\docs\\business-plan\\my_people.Rmd"}

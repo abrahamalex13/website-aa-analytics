@@ -1,6 +1,6 @@
 ---
 title: About
-disable_comments: false
+showcomments: false
 ---
 
 ```{r echo = FALSE, child = "C:\\Users\\Alex\\Documents\\startup\\resume\\resume.Rmd"}
