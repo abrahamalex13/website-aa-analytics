@@ -24,7 +24,7 @@ enableRobotsTXT = true
 author = "Alex Abraham"
 intro = "Statistician"
 description = "Unlock underutilized data, better inform decisions."
-authorimage = "headshot_full_size.jpg"
+authorimage = "headshot.jpg"
 dateformat = "Jan 2, 2006"
 
 ## Site Meta Settings
