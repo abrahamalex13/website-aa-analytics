@@ -23,7 +23,7 @@ enableRobotsTXT = true
 [params]
 author = "Alex Abraham"
 intro = "Statistician"
-description = "Unlock underutilized data, better inform decisions."
+description = "Unlock underutilized data, elevate decision-making."
 authorimage = "headshot.jpg"
 dateformat = "Jan 2, 2006"
 
