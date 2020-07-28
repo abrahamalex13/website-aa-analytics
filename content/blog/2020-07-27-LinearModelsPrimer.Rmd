@@ -2,7 +2,7 @@
 title: 'Linear Models - A Primer'
 subtitle: 'Classical Statistics and Machine Learning Varieties'
 author: "Alex Abraham"
-date: 2020-07-21
+date: 2020-07-27
 categories: ["linear regression", "estimation", "statistics", "machine learning", "simulation"]
 tags: ["linear regression", "estimation", "statistics", "machine learning", "simulation"]
 bibliography: ["master_bib.bib"]
