@@ -22,7 +22,7 @@ enableRobotsTXT = true
 ## Site Settings
 [params]
 author = "Alex Abraham"
-intro = "Statistician"
+intro = "Applied Statistician"
 description = "Unlock underutilized data, elevate decision-making."
 authorimage = "headshot.jpg"
 dateformat = "Jan 2, 2006"
