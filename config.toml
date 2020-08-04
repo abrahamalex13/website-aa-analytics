@@ -61,3 +61,8 @@ displayrssicon = true
     weight = 300
     identifier = "cv"
     url = "/cv/"
+[[menu.main]]
+    name = "contact"
+    weight = 400
+    identifier = "contact"
+    url = "/contact/"
