@@ -74,7 +74,7 @@ At the Federal Reserve, I coded backtests
 of competing job growth forecasting models.
 I regularly analyzed firm-level information
 from internal and external databases. I've presented
-projects through speeches and in published reports
+projects through speeches and published reports
 available online.
 
 As I've learned about statistical methods in the office,
