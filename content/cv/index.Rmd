@@ -1,0 +1,8 @@
+---
+title: CV
+comments: false
+share: false
+---
+
+```{r echo = FALSE, child = "C:\\Users\\Alex\\Documents\\startup\\resume\\resume.Rmd"}
+```
