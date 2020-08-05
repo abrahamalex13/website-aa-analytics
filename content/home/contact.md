@@ -6,7 +6,7 @@ active = true  # Activate this widget? true/false
 weight = 130  # Order that this section will appear.
 
 title = "Contact"
-subtitle = "I'm excited to learn about business questions that you want to answer with data."
+subtitle = "I'm excited to learn about your vision for utilizing data in new ways."
 
 # Automatically link email and phone?
 autolink = true
