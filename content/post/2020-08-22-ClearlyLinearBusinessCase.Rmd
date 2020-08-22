@@ -1,0 +1,14 @@
+---
+title: "Linear Models - A Clearly Linear Business Case Study"
+subtitle: "Comparing 'Off-the-Shelf' Solutions from Classical Statistics and Machine Learning"
+author: "Alex Abraham"
+date: 2020-08-22
+categories: ["linear regression", "estimation", "statistics", "machine learning", "simulation", "case study", "manufacturing"]
+tags: ["linear regression", "estimation", "statistics", "machine learning", "simulation"]
+bibliography: ["master_bib.bib"]
+biblio-style: "apalike"
+link-citations: true
+---
+
+```{r echo = FALSE, child = "C:\\Users\\Alex\\Documents\\startup\\ml-vs-trad\\doc\\clearly_linear\\linear-models-clearly-linear-case.Rmd"}
+```

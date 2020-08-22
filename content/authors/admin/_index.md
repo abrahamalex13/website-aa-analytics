@@ -22,6 +22,7 @@ bio: Unlock underutilized data, fortify decision-making.
 
 interests:
 - Database Preparation
+- Automated Database Monitoring/Reporting
 - Data Visualization
 - Statistical Modeling
 - Forecasting and Prediction
