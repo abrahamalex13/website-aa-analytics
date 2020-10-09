@@ -1,0 +1,14 @@
+---
+title: "Predicting Lemons at Wholesale Auto Auction (1)"
+subtitle: "Data Exploration"
+author: "Alex Abraham"
+date: 2020-10-09
+categories: ["case study", "autos", "cars", "visualization", "exploratory", "exploratory data analysis", "statistics", "estimation"]
+tags: ["case study", "autos", "cars", "visualization", "exploratory", "exploratory data analysis", "statistics", "estimation"]
+bibliography: ["bib_carvana_eda.bib"]
+biblio-style: "apalike"
+link-citations: true
+---
+
+```{r echo = FALSE, child = "C:\\Users\\Alex\\Documents\\startup\\carvana-lemon\\doc\\eda\\used-car-mkt-eda.Rmd"}
+```

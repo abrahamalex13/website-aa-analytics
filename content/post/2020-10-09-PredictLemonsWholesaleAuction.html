@@ -1,0 +1,424 @@
+---
+title: "Predicting Lemons at Wholesale Auto Auction (1)"
+subtitle: "Data Exploration"
+author: "Alex Abraham"
+date: 2020-10-09
+categories: ["case study", "autos", "cars", "visualization", "exploratory", "exploratory data analysis", "statistics", "estimation"]
+tags: ["case study", "autos", "cars", "visualization", "exploratory", "exploratory data analysis", "statistics", "estimation"]
+bibliography: ["bib_carvana_eda.bib"]
+biblio-style: "apalike"
+link-citations: true
+---
+
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<p><strong>Key Takeaways</strong></p>
+<ul>
+<li><p>Around 2012, Carvana – a car retailer – posted wholesale auto auction transaction data,
+prompting analysts to predict whether a purchased vehicle would turn out to be a lemon.
+Historical data of this sort may help auction buyers avoid future lemons.</p></li>
+<li><p>Preliminary insights follow from visual exploration of the data.</p></li>
+</ul>
+<p> </p>
+<div id="why-is-this-case-study-worth-a-read" class="section level1">
+<h1>Why is this Case Study Worth a Read?</h1>
+<p>Among 10 cars purchased at wholesale auto auction,
+1 turns out to be a lemon, on average.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>
+The associated cost scales rapidly over time and the population of car retailers.
+<em>How can wholesale auto auction transaction data help buyers avoid future lemons?</em>
+That is the exciting business question
+for the sold-at-wholesale auto auction data I examine.</p>
+</div>
+<div id="about-the-sold-at-wholesale-auto-auction-data" class="section level1">
+<h1>About the Sold-at-Wholesale Auto Auction Data</h1>
+<p>Around 2012, Carvana – a car retailer –
+posted wholesale auto auction transaction data for a prediction <a href="www.kaggle.com/c/DontGetKicked">competition</a>.
+The instruction: “predict if a car purchased at auction is a lemon” <span class="citation">(Kaggle <a href="#ref-kaggle_carvana" role="doc-biblioref">2012</a>)</span>.
+<em>Carvana defines a lemon as a car with
+“serious issues that prevent it from being sold to customers […]
+[such as] tampered odometers, mechanical issues the dealer is not
+able to address, issues with getting the vehicle title from the seller,” etc</em> <span class="citation">(Kaggle <a href="#ref-kaggle_carvana" role="doc-biblioref">2012</a>)</span>.</p>
+<p>How do these data look in a spreadsheet? What’s the structure?
+One row<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> represents a vehicle purchased at auction.
+That row contains vehicle and transaction information
+which may help predict the key outcome:
+whether the vehicle turns out to be a lemon (“yes” or “no”).
+The data record approximately 70,000 auction purchases.</p>
+<p>The data contain these potential predictors<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> of whether a vehicle turns out to be a lemon:</p>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-4">Table 1: </span>Sold-at-Wholesale Auto Auction Data: Transaction and Vehicle Information Recorded
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Date of purchase
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Auction
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Manufacturer’s year
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Years elapsed since the manufacturer’s year
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Manufacturer
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Model
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Trim level
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Submodel
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Color
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Transmission type
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Wheel type
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Odometer reading (mileage)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Manufacturer’s country
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Size category
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Expected price: in auction market, in average condition
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Expected price: in auction market, in above-average condition
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Expected price: in retail market, in average condition
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Expected price: in retail market, in above-average condition
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Auction’s level of guarantee
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Buyer’s unique ID
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zipcode of purchase
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+State of purchase
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Price
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Purchase occurred online (yes/no)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Warranty price (term = 36-month and mileage = 36K)
+</td>
+</tr>
+</tbody>
+</table>
+<p>With relatively many possible predictors, how might the data analysis proceed?
+<strong>In my view, optimal data analysis combines theory and computational pattern-finding.</strong>
+Subject matter expertise (theory) should offer a general guide for quantitative modeling.
+However, that level of knowledge may not be specific enough to the data at hand.
+So theory and intuition also follow from exploring the available data: through charts,
+summary statistics, and so on<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>.
+I undertake this data exploration in the blog content that follows.</p>
+<p> </p>
+</div>
+<div id="data-exploration" class="section level1">
+<h1>Data Exploration</h1>
+<p>Data exploration helps address critical questions
+which must precede any formal modeling.</p>
+<ul>
+<li>Do the values recorded in my data look reasonable?
+Are there obvious recording errors or ambiguities?</li>
+<li>How would I describe these data’s contents to a colleague, client, or friend?</li>
+<li>What relationships appear interesting, and what’s the intuition?</li>
+</ul>
+<p>I find narrative-form data exploration especially insightful<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>.</p>
+<div id="examine-categorical-variables-values" class="section level2">
+<h2>Examine Categorical Variables’ Values</h2>
+<p>To begin, I select one variable and examine its values in a couple ways –
+(a) without regard for the lemon/not lemon outcome, or (b) by lemon/not lemon outcome.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>
+Intuitively, how do we recognize a true predictor of lemon status?
+Consider one value of that predictor, and then narrow focus to those cases in the data.
+If among those cases, the lemon rate differs notably versus its full-data average,
+that predictor (value) is informative.</p>
+<p>I begin with variables that take categorical/discrete values.
+When examining cases by lemon/not lemon outcome,
+I also plot the full-data average lemon probability – about 12%.</p>
+<div id="manufacturers-year" class="section level3">
+<h3>Manufacturer’s Year</h3>
+<p><img src="/post/2020-10-09-PredictLemonsWholesaleAuction_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>For example – the above chart shows that among vehicles with manufacturer year of 2001,
+about 25% turn out to be lemons. Broadly, older vehicles have above-average
+lemon rates. Didn’t need a quantitative analyst to tell you that!</p>
+</div>
+<div id="manufacturer-make" class="section level3">
+<h3>Manufacturer (Make)</h3>
+<p>We learn about peculiar wholesale auction dynamics when exploring by manufacturer (Make).</p>
+<p><img src="/post/2020-10-09-PredictLemonsWholesaleAuction_files/figure-html/unnamed-chunk-6-1.png" width="960" /></p>
+<p>Begin with the by-Make counts, which help inform <em>uncertainty</em> about by-Make expectations.
+Intuitively, after we observe many cars from a Make,
+we’re more certain about what to expect from that Make.
+Conversely, if we’ve observed few cars from a Make,
+we’re highly uncertain about what to expect –
+the baseline could change significantly with only a couple more observations.</p>
+<p>For example, the data inform fairly certain expectations for
+Chevrolet, Dodge, Ford, or Chrysler. For many Makes, though, the data
+are not very informative about what to expect.
+How could we try and make a highly uncertain expectation less wrong?
+<strong>Lower error may result when an expectation
+down-weights inconclusive data and incorporates other information.
+Statistics calls this paradigm the bias-variance trade-off.</strong></p>
+<p>Proceed to average lemon rates by Make. These reveal the peculiar, counter-intuitive
+nature of vehicles sold at wholesale auction. For example,
+luxury brands tend to have above-average lemon rates. Why?
+The phenomenon of <em>adverse selection</em> may explain.
+If a luxury vehicle makes it to wholesale auction,
+that vehicle is likely anomalous in an unpleasant way.
+Of course, luxury brands constitute a small fraction of all transactions.
+Among Makes more frequently observed,
+the lemon rate appears to differ significantly from its overall average.</p>
+</div>
+<div id="size-category" class="section level3">
+<h3>Size Category</h3>
+<p><img src="/post/2020-10-09-PredictLemonsWholesaleAuction_files/figure-html/unnamed-chunk-7-1.png" width="960" /></p>
+<p>Most observed vehicles have a sedan-like size.
+Among sizes seen more often,
+the lemon rate appears to differ significantly from its overall average.</p>
+</div>
+<div id="transmission-type" class="section level3">
+<h3>Transmission Type</h3>
+<p><img src="/post/2020-10-09-PredictLemonsWholesaleAuction_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>Among transmission types often observed,
+the lemon rate does not appear to differ much from its overall average.
+So transmission type doesn’t appear to predict lemon probability.</p>
+</div>
+<div id="color" class="section level3">
+<h3>Color</h3>
+<p>Color lacks a clear theoretical
+relationship with lemon probability.
+Perhaps cars with heavy wear-and-tear
+have also been painted with aftermarket colors?
+Nonetheless, it is worth checking for any data surprises.</p>
+<p><img src="/post/2020-10-09-PredictLemonsWholesaleAuction_files/figure-html/unnamed-chunk-9-1.png" width="960" /></p>
+<p>Among colors often observed,
+the lemon rate does not appear to differ much
+from its overall average. So color is likely
+unhelpful as a predictor of lemon probability.</p>
+</div>
+<div id="wheel-type" class="section level3">
+<h3>Wheel Type</h3>
+<p>Wheel type lacks a clear theoretical
+relationship with lemon probability.
+So initially the variable may
+not seem to deserve investigation.
+However, in this case, hands-on
+data exploration reveals an intriguing pattern.
+<em>This is an example where data exploration/understanding
+yields great return, which theory alone would miss.</em></p>
+<p><img src="/post/2020-10-09-PredictLemonsWholesaleAuction_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>When wheel type is coded NULL, the lemon rate jumps far above-average.
+Why? Simply put, here is a data quirk. Perhaps NULL wheel type proxies
+for some troublesome mechanical phenomenon. Perhaps a data entry fluke
+tends to occur for troublesome vehicles. Whatever the truth of it,
+unnecessary downside risk haunts a lemon prediction which ignores wheel type.</p>
+</div>
+<div id="auction" class="section level3">
+<h3>Auction</h3>
+<p><img src="/post/2020-10-09-PredictLemonsWholesaleAuction_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>On average, a bit more lemon risk
+may be incurred by purchasing from Adesa.</p>
+</div>
+<div id="auctions-level-of-guarantee" class="section level3">
+<h3>Auction’s Level of Guarantee</h3>
+<p><img src="/post/2020-10-09-PredictLemonsWholesaleAuction_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>For a ‘Green’ guarantee,
+the lemon rate drops substantially from its overall average.
+Similar to the study of wheel type, level of guarantee
+may help predict not-lemon probability in those special
+‘Green’ cases.</p>
+</div>
+<div id="purchase-occurred-online" class="section level3">
+<h3>Purchase Occurred Online</h3>
+<p><img src="/post/2020-10-09-PredictLemonsWholesaleAuction_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>By transaction forum,
+the lemon rate does not appear to differ much from its overall average.
+So transaction forum doesn’t appear to predict lemon probability.</p>
+</div>
+<div id="state" class="section level3">
+<h3>State</h3>
+<p><img src="/post/2020-10-09-PredictLemonsWholesaleAuction_files/figure-html/unnamed-chunk-14-1.png" width="960" /></p>
+<p>State of purchase contains many categorical values,
+like Make did previously. So the analytical approach
+for Make may be adapted here.</p>
+<p>Frequency counts suggest fairly certain expectations may follow
+for a handful of states. To name a clear few, these include Texas, Florida,
+California, and North Carolina. On the other hand, the data
+support only weakly certain expectations for fairly many states.
+For instance, few New York or Illinois cases are observed.</p>
+<p>State-to-state, the lemon rate appears to differ significantly from its overall average.
+So state of purchase may help predict lemon probability.</p>
+</div>
+</div>
+<div id="examine-numeric-variables-values" class="section level2">
+<h2>Examine Numeric Variables’ Values</h2>
+<div id="purchase-price-ratios" class="section level3">
+<h3>Purchase Price Ratios</h3>
+<p>Price variables are interesting
+when considered in a particular form.
+It seems reasonable to theorize that
+if a vehicle carries higher lemon risk,
+it’s sold “cheap” at auction. But how might “cheap” or “expensive” be quantified?
+One metric I create is a ratio of actual purchase price to peer group expected price.
+There are different peer group expected price series, allowing a few calculation variants.</p>
+<p>Another ratio worth examining is warranty price to actual purchase price.
+As a vehicle’s lemon risk increases, it likely costs more to insure.</p>
+<p><img src="/post/2020-10-09-PredictLemonsWholesaleAuction_files/figure-html/unnamed-chunk-15-1.png" width="1344" /></p>
+<p>These charts raise more questions than they address.
+At first glance, it appears that high relative prices
+occur <em>more</em> frequently among lemons. For example,
+consider the price ratio for average condition/auction sale peer group (top left).
+There’s higher concentration within 1.25 to 2 among lemons, versus not-lemons.
+How could this be? Perhaps the visual differences in concentration are quantitatively insignificant.
+Or perhaps the peer group definitions have strong influence.</p>
+<!-- Or, maybe vehicles with obviously high lemon risk never even sell at auction. -->
+<!-- Under that premise, lemon probabilities won't intuitively inform prices. -->
+<p>A data-driven theory arises from a study of the warranty-to-price ratio:</p>
+<p><img src="/post/2020-10-09-PredictLemonsWholesaleAuction_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p>High warranty-to-price seems to occur more frequently among lemons.
+This makes good sense – as lemon risk rises, so too should relative warranty price.
+If the data’s recorded vehicle price includes warranty price,
+the former may appear elevated relative to peers.</p>
+</div>
+<div id="mileage" class="section level3">
+<h3>Mileage</h3>
+<p>Vehicle mileage offers perhaps the most intuitive predictor of lemon probability.</p>
+<p><img src="/post/2020-10-09-PredictLemonsWholesaleAuction_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p>High mileage occurs more frequently among lemons.
+The interesting part will be quantifying how lemon risk varies with mileage.</p>
+<p> </p>
+</div>
+</div>
+</div>
+<div id="weve-only-scratched-the-surface" class="section level1">
+<h1>We’ve Only Scratched the Surface!</h1>
+<p>I draw highlights from this first project step and map the road ahead.</p>
+<p>Simple single-variable tabulations reveal the broad contents
+of sold-at-wholesale auto auction data. Some quirks become apparent –
+see wheel type, for instance. However, no critical data quality concerns arise.</p>
+<p>Categorical predictors of lemon probability may take many possible values – see Make or State.</p>
+<ul>
+<li>How should a quantitative model handle rarely-observed predictor values?
+When low frequency counts render the primary data weakly informative,
+might strategic data down-weighting improve predictions?</li>
+</ul>
+<p>Charts suggest which predictors have first-order impacts on lemon rate.</p>
+<ul>
+<li>How will a quantitative model rank variables’ importance?</li>
+<li>How do predictors <em>jointly</em> impact lemon rates?
+For example – consider three separate lemon rates, among: (a)
+2005 manufacturer year, (b) Chevrolet, and (c) Equinox models.
+Should these pieces come together and correctly describe the lemon rate for
+2005 Chevrolet Equinoxes? Perhaps not.
+When vehicle characteristics are considered separately,
+there may be a <em>joint</em> dynamic missed. There exist enormously
+many combinations of this sort. Automated quantitative models
+will drive this exploration efficiently.</li>
+</ul>
+<p> </p>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1>References</h1>
+<div id="refs" class="references">
+<div id="ref-kaggle_carvana">
+<p>Kaggle, Carvana. 2012. “Don’t Get Kicked!” URL: www.kaggle.com/c/DontGetKicked/overview/description.</p>
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Sources: Featured Carvana dataset, author’s calculations.
+Years examined are 2009 and ’10.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>A “row” may also be called a “record” or an “observation”.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>I omit some predictors contained in the
+full data because they convey redundant information.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>In the lingo, <em>exploratory data analysis</em> (EDA).<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>
+I reserve technical predictive algorithms for later posts.<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p>In the interest of brevity,
+I present the recorded values after accounting for missing data and other quirks.<a href="#fnref6" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
