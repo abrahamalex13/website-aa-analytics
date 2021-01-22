@@ -1,0 +1,189 @@
+---
+title: "Predicting Lemons at Wholesale Auto Auction (2) - Predictive Model Introduction"
+author: "Alex Abraham"
+date: 2021-01-22
+categories: ["case study", "autos", "cars", "machine learning", "statistics", "estimation", "competition"]
+tags: ["case study", "autos", "cars", "machine learning", "statistics", "estimation", "competition"]
+bibliography: ["bib_carvana_ML_intro.bib"]
+biblio-style: "apalike"
+link-citations: true
+---
+
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+
+
+<p>Picture this. Your mission is to secure great deals on vehicles sold at wholesale auto auction.
+An intriguing prospect comes on your radar. How do you make the purchasing decision?
+How do you quickly weigh 25 pieces of available information?
+I’m eager to help. I introduce and verify a machine learning model trained by 70,000 historical transactions.</p>
+<p>For context about this prediction problem and associated <a href="https://www.kaggle.com/c/DontGetKicked">Kaggle competition</a>,
+please see my <a href="https://alexabraham-analytics.com/post/2020-10-09-predictlemonswholesaleauction/">overview post</a>.</p>
+<p><strong>Key Takeaways</strong></p>
+<ul>
+<li><p>The used car market has heated up under COVID-19 restrictions.
+The market surge galvanizes wholesale auto auctions,
+where vehicle purchasing decisions were already uncertain and demanding.</p></li>
+<li><p>Auction purchasing decisions may be further supported with a machine learning model.
+My model uses an auctioned vehicle’s characteristics to predict “lemon probability,”
+after learning from 70,000 historical transactions.</p></li>
+<li><p>My model prototype delivers strong performance.
+It ranks 90th percentile when scored by Kaggle’s archived prediction competition.</p></li>
+</ul>
+<div id="problem-materiality-appears-elevated-by-covid-19" class="section level1">
+<h1>Problem Materiality Appears Elevated by COVID-19</h1>
+<p>The used car market has heated up under COVID-19 restrictions.
+For one, new car supply has been hampered:
+Spring 2020 shutdowns froze production lines,
+and pressures continue under early 2021 semiconductor shortages <span class="citation">(WSJ <a href="#ref-wsj_chips" role="doc-biblioref">2021</a><a href="#ref-wsj_chips" role="doc-biblioref">a</a>)</span>.
+So it makes sense that 2020 car sales “soared” in the used market and fell in the new;
+one commentator provocatively notes,
+“a used car bought a year ago is worth more now [in January 2021]” <span class="citation">(WSJ <a href="#ref-wsj_sales" role="doc-biblioref">2021</a><a href="#ref-wsj_sales" role="doc-biblioref">b</a>)</span>.</p>
+<p>A surging used car market galvanizes wholesale auto auctions.
+Even prior to recent times, auction purchasing decisions were uncertain and demanding.
+Among 10 vehicles purchased at wholesale auto auction,
+1 turns out to be a lemon, on average.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>
+A prospective purchase may provide 25 pieces of information
+to a decision-maker.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>
+The fast-paced market calls for increasingly effective purchasing decisions.</p>
+</div>
+<div id="solution-decision-support-with-machine-learning" class="section level1">
+<h1>Solution: Decision Support with Machine Learning</h1>
+<p>Effective decision support looks like, <em>contributing information</em> to a broader assessment.
+<strong>My data science product rigorously predicts an auctioned vehicle’s “lemon probability,” using its characteristics</strong>.
+The complete decision support system involves:</p>
+<ol style="list-style-type: decimal">
+<li><p>A predictive model, which intakes a vehicle’s characteristics and outputs probability of being a lemon.
+This machine learning model learns patterns from 70,000 historical transactions.
+It may be custom-tuned to match a decision-maker’s objectives/risk tolerance.</p></li>
+<li><p>A user interface, allowing seamless interaction with the predictive model. A mockup follows:</p></li>
+</ol>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-3"></span>
+<img src="/images/preview_dash.bmp" alt="Model interface mockup."  />
+<p class="caption">
+Figure 1: Model interface mockup.
+</p>
+</div>
+<p> </p>
+<p>In this post, I verify my predictive model prototype (point 1).
+<strong>Model verification must precede any real use</strong>;
+the model is the engine of the decision support system.
+Performance has been promising.
+In January 2021 I submitted model predictions to the associated <a href="https://www.kaggle.com/c/DontGetKicked">Kaggle competition</a>,
+and the work ranked 90th percentile on the archived global leaderboard.</p>
+</div>
+<div id="about-my-predictive-model-prototype" class="section level1">
+<h1>About My Predictive Model Prototype</h1>
+<div id="why-machine-learning" class="section level2">
+<h2>Why Machine Learning?</h2>
+<p>This problem invites a machine learning approach under a general-purpose reason:
+<em>theory weakly anticipates predictor-outcome relationships.</em></p>
+<p>For example, consider the relationship between mileage and lemon probability.
+Increasing mileage generally implies greater wear, and therefore greater lemon probability.
+This theory offers general guidance, but it quickly loses precision in the real world.
+For one, the relationship likely evolves over the range of mileage.
+Perhaps at low mileage, one hundred additional miles do not meaningfully increase lemon probability.
+Moreover, nothing has yet been mentioned of Make, Model, and age.
+These factors should also influence the link between mileage and lemon probability.</p>
+<p>When it’s hard to fully articulate how predictors map to an outcome,
+the computing power of machine learning may help.
+Given data, an algorithm can conduct <em>automated</em> searches for predictor-outcome relationships.
+Processing may even entail constructing better predictors from the original ones.
+Automation unlocks rich modeling possibilities, practically unattainable under manual methods.</p>
+</div>
+<div id="strong-performance-helps-verify" class="section level2">
+<h2>Strong Performance Helps Verify</h2>
+<p>I adopt a particular measure of model performance:
+rank on the associated <a href="https://www.kaggle.com/c/DontGetKicked">Kaggle competition’s</a> archived global leaderboard.
+Scoring follows a specific measure of prediction accuracy.
+Tuning my algorithm to optimize that scoring measure,
+my submitted predictions rank 90th percentile, in a field of more than 500 competitors.</p>
+<p>I gladly provide supporting evidence for my claim:</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-4"></span>
+<img src="/images/evidence_my_submit.bmp" alt="My submission's score."  />
+<p class="caption">
+Figure 2: My submission’s score.
+</p>
+</div>
+<p> </p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-5"></span>
+<img src="/images/evidence_leaderboard_my_pos.bmp" alt="My public leaderboard position, among more than 500 total competitors."  />
+<p class="caption">
+Figure 3: My public leaderboard position, among more than 500 total competitors.
+</p>
+</div>
+<p> </p>
+<p>This particular model tuning delivers an approximately 25% true positive rate and &lt;1% false positive rate.</p>
+</div>
+<div id="logical-interpretations-arise" class="section level2">
+<h2>Logical Interpretations Arise</h2>
+<p>Broadly speaking, there exists a trade-off between model interpretability and predictive power.
+Intuitively, as one predictor-outcome relationship increasingly depends on other predictors’ values,
+that former relationship becomes harder to summarize.</p>
+<p>In the model’s current state, I favor predictive power.
+The model learns at least a bit from most every predictor.
+Headline takeaways follow from a fundamental predictor importance measure.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
+<ul>
+<li><p>“Wheel type” is a highly influential predictor – particularly when missing, and not with a typical value like Alloy.
+This phenomenon almost certainly lacks a mechanical explanation.
+Most importantly, the machine learning model detects this pattern, and predictions strongly benefit.
+Bigger picture, this is a data quirk in the prototype setting.
+Perhaps it’s explained by a data retrieval quirk as Carvana initialized the competition.
+Or, perhaps likelier, Carvana applied this strange encoding to
+restrict analysts from directly acting on model conclusions.</p></li>
+<li><p>Age and Make-Model meaningfully influence lemon probability, exactly as intuition suggests.</p></li>
+<li><p>For the most influential price indicator, examine relative warranty cost: warranty cost divided by sale price.
+Intuitively, rising relative warranty cost should imply rising lemon probability.</p></li>
+</ul>
+<p>These model-based assessments align clearly
+with my previous <a href="https://alexabraham-analytics.com/post/2020-10-09-predictlemonswholesaleauction/">exploratory data analysis</a>.</p>
+</div>
+<div id="algorithm-choice-gradient-boosting-technical" class="section level2">
+<h2>Algorithm Choice: Gradient Boosting (Technical)</h2>
+<p>This subsection offers some technical detail about my predictive model.</p>
+<p><em>Following comprehensive data pre-processing</em>,
+a gradient boosted tree model delivers strongest competition performance.
+Structurally, I sum relatively shallow decision trees – tree depth of 3 works well.
+I also scale down the default learning rate by a factor of 10.
+I utilize R’s implementation of xgboost, which leverages parallelization
+for remarkable speed boosts over gbm.</p>
+<p>When contemplating this model’s effectiveness,
+I lean on the method’s distinct properties.
+It’s well-understood that the boosting procedure effectively
+(a) constructs new predictors from originals, and
+(b) up-weights cases of prediction errors.
+So it appears that, this prediction problem benefits
+from richer <em>data representation</em> under mechanism (a),
+and increasing responsiveness to errors under (b).</p>
+</div>
+</div>
+<div id="delivery-of-additional-code" class="section level1">
+<h1>Delivery of Additional Code</h1>
+<p>As often described, model-building is the fun and easy part of this data analysis.
+Developing the data preparation pipeline is the hard, time-consuming part.
+I emphasize both parts in my overall code development.
+In particular, I deliver an automated <a href="https://github.com/abrahamalex13/carvana-lemon">data preparation pipeline</a>
+and an <a href="https://github.com/abrahamalex13/doPrepExplore">R package</a> of general subroutines.</p>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1>References</h1>
+<div id="refs" class="references">
+<div id="ref-wsj_chips">
+<p>WSJ. 2021a. “Ford, Other Auto Makers Cut Output, Idle Workers on Chip Shortage.” URL: www.wsj.com/articles/ford-other-auto-makers-cut-output-on-chip-shortage-11610280001.</p>
+</div>
+<div id="ref-wsj_sales">
+<p>———. 2021b. “Markets Rally Highlights Bets on Recovery.” URL: www.wsj.com/articles/markets-rally-highlights-bets-on-recovery-11610274601.</p>
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Sources: Featured Carvana dataset, author’s calculations.
+Years examined are 2009 and ’10.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>For examples of available vehicle information, please see my previous post: alexabraham-analytics.com/post/2020-10-09-predictlemonswholesaleauction/.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>This
+predictor importance measure quantifies the following: when the model incorporates this predictor,
+what’s the accuracy gain? For more, see xgboost.readthedocs.io/en/latest/R-package/discoverYourData.html.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>

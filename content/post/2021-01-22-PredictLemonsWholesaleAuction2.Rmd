@@ -1,0 +1,17 @@
+---
+title: "Predicting Lemons at Wholesale Auto Auction (2) - Predictive Model Introduction"
+author: "Alex Abraham"
+date: 2021-01-22
+categories: ["case study", "autos", "cars", "machine learning", "statistics", "estimation", "competition"]
+tags: ["case study", "autos", "cars", "machine learning", "statistics", "estimation", "competition"]
+bibliography: ["bib_carvana_ML_intro.bib"]
+biblio-style: "apalike"
+link-citations: true
+---
+
+```{r echo = FALSE}
+   publish_blog <- TRUE
+```
+
+```{r echo = FALSE, child = "C:\\Users\\Alex\\Documents\\projects\\carvana-lemon\\reports\\pitch\\intro-prototype-solution.Rmd"}
+```
