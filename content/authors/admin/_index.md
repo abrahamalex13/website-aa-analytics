@@ -31,7 +31,7 @@ education:
   courses:
   - course: MS in Statistics
     institution: Texas A&M University
-    year: 2021 (exp.)
+    year: 2021
   - course: BS in Economics
     institution: Purdue University
     year: 2016
@@ -66,8 +66,8 @@ user_groups:
 I'm committed to answering business questions with data.
 
 As a data analyst in the private sector, 
-I've coded backtests of competing home price
-prediction models. I've also 
+I've coded backtests of loan repayment 
+and home price prediction models. I've also 
 built new automated workflows to 
 monitor production model accuracy.
 
@@ -79,5 +79,5 @@ projects through speeches and published reports
 available online.
 
 As I've learned about statistical methods in the office,
-I've also studied them through Texas A&M.
+I also studied them through Texas A&M.
 I previously studied economics at Purdue.
