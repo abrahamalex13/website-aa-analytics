@@ -1,0 +1,75 @@
+**Objective** Improve business decision-making, with underutilized data and statistical analysis.  
+**Methods** R (tidyverse), Python, SQL; Regression Analysis, Predictive Modeling (gradient boosting machines)
+
+
+\vspace{-2truemm}
+
+
+## Work Experience
+
+**Sezzle** \hfill _Feb. 2021 - Present_
+
+_Data Analyst - Credit Strategy_
+
+  - Develop unsupervised learning algorithms for anomaly/fraud detection.
+  - Develop unsupervised and supervised customer scoring models.
+  - Develop novel credit limit assignment model, using machine learning to forecast new customers' future
+  payment performance.
+
+
+**Bank of America** \hfill _Mar. 2020 - Feb. 2021_
+
+_Risk Strategy Analyst_
+
+  - Coded backtests to evaluate competing home price prediction models. 
+  - Built R Markdown workflows for automated monitoring of home price prediction accuracy.
+
+
+**Federal Reserve Bank of Dallas**  \hfill _Jan. 2017 - Mar. 2020_
+
+_Economic Programmer/Analyst - Regional Economy Research_ \hfill _Mar. 2018 - Mar. 2020_  
+
+  - Backtested predictive models of 12-month job growth for Texas metros, in R.
+  Examined 200 potential economic predictors using conventional time series models and machine learning algorithms.
+  Recommended a simple historical average forecast strategy, based on model errors.
+  - Re-built Texas monthly employment growth 'nowcasting' forecast model in R, from existing SAS code.
+  Reduced program run-time to minutes, from 4 hours originally. Adapted this approach
+  to also forecast quarterly revisions to Texas job growth.
+  - Compiled a database of select Federal Reserve branches' manufacturing survey microdata.
+  - Analyzed business establishment relocations to Texas, using the National Establishments Time Series SQL database.
+  Presented co-authored article to Houston Branch's Board of Directors and San Antonio Branch's banking council.
+  - Maintained and updated legacy SAS code for processing of regional economic data products.
+
+
+_Research Analyst - Regional Economy Research_ \hfill _Jan. 2017 - Mar. 2018_  
+
+  - Executed existing SAS code and wrote new R code for "At the Heart of Texas" report, an analysis
+  of employment and wages across Texas metros' major industries.
+  - Assisted in research for Bank memos to the President, FOMC briefings, 
+  Regional Economy magazine, and web publications.
+      
+
+\vspace{-2truemm}
+
+
+## Education
+
+- Texas A&M Master's in Statistics (4.00/4.00) \hfill _Fall 2018 - Spring 2021_
+    - Electives: Multivariate Analysis and Statistical Learning, Time Series, Bayesian Methods, Spatial Statistics 
+- Purdue University Bachelor's in Economics, Minor in Math (4.00/4.00) \hfill _Fall 2013 - Dec. 2016_
+
+
+\vspace{-2truemm}
+
+
+## Portfolio
+
+_Co-Authored Dallas Fed Publications_  
+
+- Orrenius, Pia, Madeline Zavodny, and Alex Abraham. 2020. _The Effect of Immigration on Business Dynamics and Employment_. 
+  Working Paper 2004, Federal Reserve Bank of Dallas. https://doi.org/10.24149/wp2004.
+- At the Heart of Texas: Texas Metros Employment and Wages Report [(link)](https://www.dallasfed.org/research/~/media/Documents/research/heart/heartoftexas.pdf)
+- Texas Top-Ranked State for Firm Relocations [(link)](https://www.dallasfed.org/~/media/documents/research/swe/2018/swe1804b.pdf)
+- Gone to Texas: Migration Vital to Growth in the Lone Star State 
+  [(link)](https://www.dallasfed.org/~/media/documents/research/swe/2018/swe1801b.pdf)
+- Domestic Migration to Texas Slows as National Labor Markets Tighten [(link)](https://www.dallasfed.org/research/economics/2019/0903)
