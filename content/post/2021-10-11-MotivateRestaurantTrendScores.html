@@ -1,0 +1,62 @@
+---
+title: "How's Your Favorite Restaurant Trending?"
+author: "Alex Abraham"
+date: 2021-10-11
+categories: ["food", "dallas", "restaurants", "safety", "quality", "machine learning", "statistics", "estimation", "unsupervised"]
+tags: ["food", "dallas", "restaurants", "safety", "quality", "machine learning", "statistics", "estimation", "unsupervised"]
+biblio-style: "apalike"
+link-citations: true
+---
+
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+
+
+<p>What’s your favorite restaurant? It’s probably your favorite because of <em>current</em> experience – great food, atmosphere, value, and so on. But how do you anticipate <em>future</em> experience? How do you assess where a restaurant is <em>trending</em>?</p>
+<p>A restaurant’s <em>trend</em> hints at future direction: what might it be like in 6 months or 1 year? We can quantify restaurant trend with data. <strong>Restaurant trend scores</strong> open exciting new possibilities for restaurant promotion and discovery.</p>
+<p>To see for yourself, check out the interactive <a href="https://score-map-staging.herokuapp.com/">web app</a>! (Trend scores are available for restaurants with enough history.)</p>
+<p>This post shows how <strong>restaurant trend scores</strong> may be learned from an underutilized data source: food safety inspections.</p>
+<div id="food-safety-inspections-tell-stories-about-restaurant-trend" class="section level1">
+<h1>Food Safety Inspections Tell Stories About Restaurant Trend</h1>
+<p>Food safety inspections tell meaningful stories about restaurant trend. So inspection data have clear application toward <strong>restaurant trend scores</strong>.</p>
+<p>One restaurant’s headline inspection score can vary a lot over time:</p>
+<p><img src="/post/2021-10-11-MotivateRestaurantTrendScores_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Start with the big picture idea. When a restaurant dramatically improves its inspection score, it possesses positive, upward trend. The future looks bright – optimism follows a track record of continual improvement.</p>
+<p>For a more detailed story about restaurant trend, look to finer features of inspection history:</p>
+<ul>
+<li><p>The headline inspection score has followed what kind of path – one of consistent improvement, or sharp changes?</p></li>
+<li><p>What have been the long-run and short-run changes in score – from two years ago, and within the last year?</p></li>
+<li><p>How about underlying inspection details – over time, are issues decreasing in significance? How frequent are repeat-issues?</p></li>
+</ul>
+<p>As the above indicators improve – suggesting stronger upward trend, historically – a <strong>restaurant trend score</strong> also increases.</p>
+</div>
+<div id="food-safety-inspection-data-allow-regular-trend-score-updates" class="section level1">
+<h1>Food Safety Inspection Data Allow Regular Trend Score Updates</h1>
+<p>New food safety inspection data arrive monthly, allowing regular updates of <strong>restaurant trend scores</strong>. The Dallas data include rich details for many restaurant locations.</p>
+<p>One Dallas restaurant location<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> typically receives a health inspection every six months. Inspection details are publicly available via <a href="https://www.dallasopendata.com/Services/Restaurant-and-Food-Establishment-Inspections-Octo/dri5-wcct">Dallas OpenData</a>. One inspection records several measurements:</p>
+<ul>
+<li><p>a headline inspection score (up to 100) quickly summarizes</p></li>
+<li><p>the distinct point deductions from 100. Each one has a complete explanation.</p></li>
+</ul>
+<p>From October 2016 to August 2021, Dallas OpenData has recorded about 57,000 inspection events. 9,000 locations have at least one inspection event, and almost 6,000 locations have six inspection events.</p>
+</div>
+<div id="from-trend-indicators-a-model-learns-restaurant-trend-scores" class="section level1">
+<h1>From Trend Indicators, a Model Learns Restaurant Trend Scores</h1>
+<p>A <strong>restaurant trend score</strong> summarizes historical trend positivity, from 0-100. A score of 100 indicates strongest upward trend within a peer group. To produce the score, a quantitative model learns from restaurant trend indicators.</p>
+<p>Restaurant trend indicators include:</p>
+<ul>
+<li><p>Long-run change in headline inspection score (the strongest driver of trend score)</p></li>
+<li><p>Short-run change in headline inspection score</p></li>
+<li><p>Change in inspection violations’ count and severity</p></li>
+<li><p>Repeat violations’ severity</p></li>
+</ul>
+<p>A quantitative model uses these indicators to learn trend scores, by peer group. One peer group contains restaurants at a certain tier of headline inspection score.</p>
+<p>Explore the scores with the interactive <a href="https://score-map-staging.herokuapp.com/">web app</a>! (Trend scores are available for restaurants with enough history.)</p>
+<p>A statistical learning method powers <strong>restaurant trend scoring</strong>. One restaurant’s score is a weighted sum of trend indicator inputs. Those weights are learned by solving an optimization problem over the complete dataset. The weights are computed such that, the weighted-sum scores have maximum variability (measured by statistical variance).</p>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>One physical restaurant location may also be called an “establishment”.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>

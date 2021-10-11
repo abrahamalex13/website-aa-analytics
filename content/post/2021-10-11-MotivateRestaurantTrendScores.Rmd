@@ -1,0 +1,12 @@
+---
+title: "How's Your Favorite Restaurant Trending?"
+author: "Alex Abraham"
+date: 2021-10-11
+categories: ["food", "dallas", "restaurants", "safety", "quality", "machine learning", "statistics", "estimation", "unsupervised"]
+tags: ["food", "dallas", "restaurants", "safety", "quality", "machine learning", "statistics", "estimation", "unsupervised"]
+biblio-style: "apalike"
+link-citations: true
+---
+
+```{r echo = FALSE, child = "C:\\Users\\Alex\\Documents\\projects\\dal-open-data\\food-safety-inspect\\reports\\motivate-measure-improvement.Rmd"}
+```
