@@ -66,12 +66,12 @@ p_ex1_true <-
     geom_smooth(aes(Temperature, VT_Temperature, color = "True Linear Relationship"), method = lm, se = FALSE) + 
     
     theme(legend.position = "top",
-          plot.subtitle = element_text(size = 20, lineheight = .55)) + 
+          plot.subtitle = element_text(size = 20, lineheight = .5)) + 
     guides(color = guide_legend(ncol = 1)) + 
     theme_xaringan() + 
   
     labs(title = "Manufacturing Production Increases with Temperature", 
-         subtitle = paste("A linear model estimates the true relationship between predictor(s) and an outcome. \n",
+         subtitle = paste("A linear model estimates the true relationship between predictor(s) and an outcome. \n\n",
                           "The true relationship is unclear because of random noise in the observed outcome.", sep = ""),
          y = "Units Produced", x = "Temperature (degrees F)",
          color = NULL)
@@ -130,7 +130,7 @@ tbl_datasets_train_test <- read_csv("datasets_train_test.csv")
 
 p_dummy_data <- readRDS(paste(path_results, "dummy_data_plot.rds", sep = "")) +
   
-  theme(plot.subtitle = element_text(size = 20, lineheight = .55)) + 
+  theme(plot.subtitle = element_text(size = 20, lineheight = .65)) + 
   
   labs(y = "Units of Output (hourly)", 
        x = "Value",
