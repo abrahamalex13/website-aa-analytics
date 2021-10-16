@@ -14,5 +14,5 @@ link-citations: true
    publish_blog <- TRUE
 ```
 
-```{r echo = FALSE, child = "C:\\Users\\Alex\\Documents\\startup\\ml-vs-trad\\doc\\clearly_linear\\primer-linear-models-trad-ml.Rmd"}
+```{r echo = FALSE, child = "./reports/ml-vs-trad/doc/clearly_linear/primer-linear-models-trad-ml.Rmd"}
 ```
