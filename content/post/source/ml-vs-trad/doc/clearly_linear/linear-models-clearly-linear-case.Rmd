@@ -19,7 +19,7 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.showte
 source("presentation_objects.R")
 
 model_essence_lcase <- tolower(model_essence)
-link_blog1 <- "https://alexabraham-analytics.com/post/2020-07-27-linearmodelsprimer/"
+link_blog1 <- "https://alextabraham.com/post/2020-07-27-linearmodelsprimer/"
 link_code <- "https://github.com/abrahamalex13/ml-vs-trad"
 
 ```
