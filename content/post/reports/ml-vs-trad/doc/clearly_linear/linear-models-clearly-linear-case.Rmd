@@ -136,7 +136,7 @@ confusion and frustration among model users.
 Here, _training data_ plots correctly suggest 
 whether a predictor has a true linear relationship with the outcome.
 
-```{r fig.width = 10, echo = FALSE}
+```{r fig.asp=0.7, fig.width = 16, out.width = '100%'}
 
   p_dummy_data
 
@@ -226,7 +226,7 @@ either model studied the training data to estimate predictor-outcome relationshi
 These are "backward-looking" predictions, 
 essentially aiming to explain past outcomes.
 
-```{r, fig.width = 10}
+```{r fig.asp=0.7, fig.width = 16, out.width = '100%'}
   p_results_training_pred
 ```
 
@@ -245,7 +245,7 @@ Using the calculated models, and predictor values from new test data,
 we may forecast new outcomes. These test data are encountered 
 _strictly after_ model estimation, so predictions constitute genuine forecasts.
 
-```{r, fig.width = 10}
+```{r fig.asp=0.7, fig.width = 16, out.width = '100%'}
   p_results_test_pred
 ```
 
