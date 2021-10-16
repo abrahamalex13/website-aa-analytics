@@ -8,5 +8,5 @@ biblio-style: "apalike"
 link-citations: true
 ---
 
-```{r echo = FALSE, child = "C:\\Users\\Alex\\Documents\\projects\\dal-open-data\\food-safety-inspect\\reports\\motivate-measure-improvement.Rmd"}
+```{r echo = FALSE, child = ".\\source\\food-safety-inspect\\reports\\motivate-measure-improvement.Rmd"}
 ```
