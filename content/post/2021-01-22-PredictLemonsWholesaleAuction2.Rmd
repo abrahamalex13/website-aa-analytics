@@ -13,5 +13,5 @@ link-citations: true
    publish_blog <- TRUE
 ```
 
-```{r echo = FALSE, child = "C:\\Users\\Alex\\Documents\\projects\\carvana-lemon\\reports\\pitch\\intro-prototype-solution.Rmd"}
+```{r echo = FALSE, child = ".\\source\\carvana-lemon\\reports\\pitch\\intro-prototype-solution.Rmd"}
 ```
