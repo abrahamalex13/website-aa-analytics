@@ -44,3 +44,4 @@ public/*
 
 # automate blog post copy from source folders
 content/post/reports/copy_from_source.bat
+content/post/reports/carvana_lemon/*
