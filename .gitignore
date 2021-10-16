@@ -41,3 +41,6 @@ vignettes/*.pdf
 
 # Hugo website specific
 public/*
+
+# automate blog post copy from source folders
+content/post/reports/copy_from_source.bat
