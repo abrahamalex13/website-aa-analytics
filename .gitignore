@@ -43,5 +43,5 @@ vignettes/*.pdf
 public/*
 
 # automate blog post copy from source folders
-content/post/reports/copy_from_source.bat
-content/post/reports/carvana-lemon/
+content/post/source/copy_from_source.bat
+content/post/source/carvana-lemon/

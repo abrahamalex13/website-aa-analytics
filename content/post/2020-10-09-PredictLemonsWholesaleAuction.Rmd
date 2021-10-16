@@ -10,5 +10,5 @@ biblio-style: "apalike"
 link-citations: true
 ---
 
-```{r echo = FALSE, child = ".\\reports\\carvana-lemon\\reports\\eda\\used-car-mkt-eda.Rmd"}
+```{r echo = FALSE, child = ".\\source\\carvana-lemon\\reports\\eda\\used-car-mkt-eda.Rmd"}
 ```
