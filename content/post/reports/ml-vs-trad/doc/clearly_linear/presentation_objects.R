@@ -15,7 +15,7 @@ path_results <- paste(path_home, "results/", sep = "")
 
 #pithy lines
 model_essence <- "A rule by which _x_ predicts _y_, minimizing error"
-title_case <- paste("Data come from a controlled experiment (simulation). ", 
+title_case <- paste("Data come from a controlled experiment (simulation). \n\n", 
                     "Setup: true relationships are linear, with predictors correctly anticipated by industry expertise.",
                     sep = "")
 footnote_src <- "Source: AA Analytics."
@@ -147,7 +147,7 @@ p_dummy_data <- readRDS(paste(path_results, "dummy_data_plot.rds", sep = "")) +
 
 # assess model predictions on training data --------
 
-note_ml_fit <- paste("Machine learning model is Elastic Net, ", 
+note_ml_fit <- paste("ML model: Elastic Net, ", 
                      "estimated via cross-validation on training data and default tuning parameter grid from R's caret package.", 
                      sep = "")
 
@@ -186,8 +186,8 @@ p_results_training_pred <-
     theme(legend.position = "top", plot.subtitle = element_text(size = 20, lineheight = .55)) + 
     guides(color = guide_legend(ncol = 1)) + 
   
-    labs(title = "Under Experimental Setup, Machine Learning Makes Better Training Data Predictions",
-         subtitle = paste(title_case, "\n", note_ml_fit, sep = ""),
+    labs(title = "In This Case, Training Data Best Predicted by Machine Learning",
+         subtitle = paste(title_case, "\n\n", note_ml_fit, sep = ""),
          y = "Mean Squared Error (MSE)", 
          x = "Trial", color = "Legend",
          caption = footnote_src) + 
@@ -227,8 +227,8 @@ p_results_test_pred <-
     theme(legend.position = "top", plot.subtitle = element_text(size = 20, lineheight = .55)) + 
     guides(color = guide_legend(ncol = 1)) + 
 
-    labs(title = "Under Experimental Setup, Classical Statistics Dominates in Test Data Predictions",
-         subtitle = paste(title_case, "\n", note_ml_fit, sep = ""),
+    labs(title = "In This Case, Test Data Best Predicted by Classical Statistics",
+         subtitle = paste(title_case, "\n\n", note_ml_fit, sep = ""),
          y = "Mean Squared Error (MSE)", 
          x = "Trial", color = "Legend",
          caption = footnote_src) + 
