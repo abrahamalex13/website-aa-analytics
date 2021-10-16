@@ -49,7 +49,7 @@ The method extends naturally to analyze multiple predictors of an outcome.
 
 Some hypothetical data illustrate the idea:
 
-```{r}
+```{r fig.asp=0.8, fig.width = 12, out.width = '100%'}
   p_ex1
 ```
 
@@ -69,7 +69,7 @@ In reality, we lack absolute certainty about the _true_ relationship:
 other relevant factors vary and add random noise to the observed outcome. 
 We use available data to -- in the lingo -- make _inferences_ about the _true_ relationship.
 
-```{r}
+```{r fig.asp=0.8, fig.width = 12, out.width = '100%'}
   p_ex1_true
 ```
 
