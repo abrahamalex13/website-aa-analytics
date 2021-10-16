@@ -1,0 +1,361 @@
+---
+title: "Linear Models - A Clearly Linear Case Study"
+subtitle: "Comparing 'Off-the-Shelf' Solutions from Classical Statistics and Machine Learning"
+output: 
+  html_document:
+    theme: readable
+bibliography: ["master_bib.bib"]
+biblio-style: "apalike"
+link-citations: true
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.showtext = TRUE)
+```
+
+```{r}
+
+source("presentation_objects.R")
+
+model_essence_lcase <- tolower(model_essence)
+link_blog1 <- "https://alexabraham-analytics.com/post/2020-07-27-linearmodelsprimer/"
+link_code <- "https://github.com/abrahamalex13/ml-vs-trad"
+
+```
+
+<style>
+.nobullet li {
+  list-style-type: none;
+}
+</style>
+
+
+
+**Key Takeaways**
+
+- A business case study may be played out using
+a replicable controlled experiment^[See my previous 
+[post](`r link_blog1`) to learn about controlled experiments/simulations.].
+
+- Consider a hypothetical business case with these characteristics:
+  - The objective is prediction of a numerical outcome.
+  - Many indicators are available to try and predict the outcome.
+  However, industry expertise theorizes that only a few particular indicators matter, and those theories are correct.
+  - The outcome has a truly linear relationship with each relevant predictor (or that predictor raised to a power).
+  
+<div class="nobullet">
+* I analyze example data with "off-the-shelf" linear models from classical statistics and machine learning. The classical statistics model reaches the effective ceiling of prediction performance. The machine learning solution falls well short.
+</div>  
+
+
+
+
+
+
+
+&nbsp;  
+&nbsp;
+
+# A Business Case Study May Play Out via Controlled Experiment
+
+My earlier [post](`r link_blog1`)
+defines a particular type of experiment/simulation. We use the computer 
+to construct a world in which we know the _true_ relationship between predictor(s) and an outcome. 
+With a _true_ relationship defined, random number generation 
+produces data like we would observe in real life: 
+predictor(s) _x_, and noisily related outcome _y_.
+With this level of control -- "answer key" in hand --
+we're able to understand different models' relative performance and behavior.
+
+<!-- An Experimental Setup Embeds Business Case Details -->
+
+An experiment is interesting when it closely reflects a real-world business case. 
+Then, experimental results help guide real-world decision-making. 
+How can we ensure that an experiment reflects a particular business case?
+We tailor the details of the experiment's _true_ relationship.
+**An experiment's _true_ relationship reflects a highly specific business case.
+It's not safe to pull experimental results out of that highly specific context.**
+
+
+
+
+
+
+
+
+
+
+
+
+&nbsp;
+&nbsp;
+
+# A Clearly Linear Business Case Study, via Experiment
+
+Consider the following case study. 
+I prioritize transparency and replicability, 
+so I hope you'll explore my R code [here](`r link_code`).
+
+## Business Case Details
+
+A manufacturing company executive seeks to predict a production facility's hourly output.
+Industry expertise proposes that four factors have predictive power:
+
+- Indoor temperature
+- Laborers' average wage
+- Laborers' average hours of sleep the night before
+- Foreman's average wage
+
+In truth, these are the relevant predictors. 
+Other unrecorded factors impact output in "one-off" ways, adding random noise to the observed outcome. 
+
+46 other potential predictors are recorded, but all lack true predictive power.
+1,000 data points are available.
+
+The business question -- how may output be accurately predicted? 
+Consider two approaches, by discipline:
+
+- Classical statistics, incorporating industry expertise about which predictors matter
+- Machine learning, preferring computational power over industry expertise
+
+
+
+
+
+
+## Step 1: Introduce Training Data
+
+A high-impact data analysis begins with exploration. 
+For example, how do the data _look_? 
+Plots alone may deliver compelling insights. 
+**An interpretable statistical model quantifies 
+visualizable patterns.** The alternative is
+confusion and frustration among model users. 
+
+Here, _training data_ plots correctly suggest 
+whether a predictor has a true linear relationship with the outcome.
+
+```{r fig.width = 10, echo = FALSE}
+
+  p_dummy_data
+
+```
+
+Consider the S&P500 returns plot shown above. 
+It is known from the experimental setup that
+S&P500 returns are truly unrelated to output.
+But note the outliers along the plot's boundaries. 
+Taken with too much weight, these extreme but chance points
+provoke uncertainty around the claim of zero relationship between S&P500 returns and output.
+Enforcing the claim of zero relationship amounts to a model simplification. 
+To preview what's ahead -- an overly complex model 
+fails to impose this simplification, and forecast performance suffers.
+
+
+
+
+
+
+
+
+## Step 2: Estimate Models
+
+From the training dataset, I estimate each discipline's linear model. 
+For apples-to-apples comparison, I want each modeling approach to require 
+a similar level of my time and manual intervention. 
+For the classical statistics model, those requirements are low,
+and the method requires no customization when pulled off the discipline's "shelf."
+The machine learning model pulled from the "shelf" 
+requires some customization choices -- I use experts' published code defaults. 
+Said another way, I adopt generally "off-the-shelf" estimation approaches. 
+For more details:
+
+Begin with the big picture.
+
+- When estimating the classical statistics linear model,
+incorporate industry expertise about which predictors matter.
+This means that 46 of the potential predictors are properly left out of the model.
+
+- When estimating the machine learning linear model, 
+prefer computational power over industry expertise. 
+This means that the algorithm decides which of the 50
+predictors are important, and includes those in the model.
+
+Technical details are important for deeper future studies.
+
+- When estimating the machine learning linear model:
+  - Use a hybrid algorithm of different linear machine learning methods -- 
+  the "Elastic Net" [@enet]
+  - For model tuning, use cross-validation on the training data, and 
+  the default grid of tuning parameters from R's excellent 
+  [caret](http://topepo.github.io/caret/index.html) package
+  
+
+
+
+
+
+
+## Step 3: Evaluate Estimated Models
+
+
+### One metric to summarize prediction performance
+
+Intuitively, we want a model whose prediction errors have low (1) dispersion and (2) average magnitude.
+How might we summarize these prediction error characteristics?
+Consider the _mean squared error (MSE)_ metric.
+This metric increases when there's an increase in prediction errors'
+(1) dispersion or (2) average magnitude. 
+The calculation mirrors the name:
+
+1. Square each individual error
+2. Take the average
+
+To be explicit - when we use MSE to compare different models, the lower value wins.
+
+
+
+
+### Predictions of Training Data
+
+Using the calculated models, and predictor values from the training data,
+we may predict outcomes from the training data.
+These predictions benefit from hindsight -- 
+either model studied the training data to estimate predictor-outcome relationships. 
+These are "backward-looking" predictions, 
+essentially aiming to explain past outcomes.
+
+```{r, fig.width = 10}
+  p_results_training_pred
+```
+
+Zooming in on early experimental trials: 
+the machine learning solution explains past
+data more accurately than the classical statistics solution does.
+This pattern holds in each of 1,000 total experimental trials.
+
+
+
+
+
+### Predictions of Test Data
+
+Using the calculated models, and predictor values from new test data,
+we may forecast new outcomes. These test data are encountered 
+_strictly after_ model estimation, so predictions constitute genuine forecasts.
+
+```{r, fig.width = 10}
+  p_results_test_pred
+```
+
+Zooming in on early experimental trials: 
+the classical statistics solution forecasts future data
+more accurately than the machine learning solution does.
+This pattern holds in each of 1,000 total experimental trials.
+
+
+
+
+
+
+
+
+
+
+
+
+&nbsp;
+&nbsp;
+
+# Discussion of Results
+
+## Test Data Gauge Whether a Model Learned Real Patterns
+
+By backward-looking prediction performance alone, 
+the machine learning solution edges out classical statistics. 
+However, the classical statistics solution _dominates_ 
+when forecasting outcomes yet to be observed. 
+What explains this phenomenon? 
+**A complex model may easily mistake random chance
+for real predictor-outcome relationships.** 
+For a visual example of how randomness may mislead, 
+see the S&P500 returns plot/text above, in "Step 1: Introduce Training Data."
+Real patterns are those borne out in new data --
+so test data properly gauge whether a model has learned real patterns.
+
+
+## Classical Statistics Reaches Prediction Performance Ceiling
+
+The classical statistics model reaches the effective ceiling of prediction performance.
+Evidence for this claim extends much deeper than the performance relative to machine learning. 
+Observe the earlier "Predictions of Test Data" plot, showing experimental trials' mean squared error (MSE).
+The value hovers around 1. Why? **MSE estimates the level of random noise in the outcome.** 
+Here, because we defined the true level of random noise in the experimental setup, we know this estimate is highly accurate. 
+So it appears the classical statistics model properly distinguishes the outcome's two sources of variation:
+
+1. Variation in the predictors that matter
+2. Surprise one-off factors
+
+A model's predictive accuracy may improve _only until_ the relationships in (1) are estimated without error.
+For our case study's applied purpose, the classical statistics linear model has reached that point.
+With no room left for meaningful improvement, _any_ competing model seeks simply to match the
+classical statistics performance.
+
+
+
+## "Off-the-Shelf" Machine Learning Approach Needs Customized
+
+Why is this "off-the-shelf" machine learning model 
+better at explaining the past but far worse at forecasting the future? 
+Additional action must be taken
+to restrict machine learning from 
+mistaking random chance for signal about the future.
+A more custom approach should help 
+move toward the classical statistics model's performance ceiling.
+
+Additional explanation of the machine learning result is more technical. 
+To decrease risk of mistaking random chance for signal about the future,
+model estimation should become a more involved process,
+with the introduction of _validation data_. 
+Suppose this business case included more data points -- 10,000, for example. 
+We could dedicate two-thirds of these to model training
+and form initial impressions of model accuracy.
+Then, the data's remaining one-third -- validation data --
+better gauges model accuracy. Why?
+The model did not study the validation data to learn predictor-outcome relationships, 
+so these predictions are more like true forecasts. 
+**Iterative model re-formulation, following custom paths, 
+may continue until model accuracy satisfies in both training and validation data.** 
+In sum, the analyst better understands model performance 
+beyond the training data, but before encountering formal test data.
+
+It's common practice to estimate machine learning models without validation data,
+especially when few data points are available [@enet] (310).
+Ideally, estimation does include validation data [@ESL] (Section 7.2, 222). 
+This experiment seems to suggest elevated risk
+when estimating machine learning models without validation data.
+
+
+<!-- - Quality of relationship estimates for those predictors that matter -->
+<!-- - "" for those predictors that don't truly matter. -->
+
+<!-- A good model explains the systematic variation, then all that's left is the idiosyncratic. -->
+<!-- think: $(\beta X + \epsilon - \hat{\beta} X)$ -->
+
+
+<!-- An important truth holds across data modeling applications:  -->
+<!-- _a reasonable model aims to explain only part of the total variation in an outcome._  -->
+<!-- A fraction of the outcome's variation is 'systematic' - explained by predictors varying. -->
+<!-- The other part of the outcome's variation is 'idiosyncratic' - random noise, attributable to one-off surprises. -->
+<!-- An effective model properly quantifies both parts of the outcome's variation.  -->
+<!-- What does this separation mean for model predictions? -->
+<!-- _Once a model correctly quantifies systematic predictor-outcome relationships,  -->
+<!-- its predictive accuracy cannot improve in a consistent way._ No model can predict random noise. -->
+
+
+
+&nbsp;
+&nbsp;
+
+# References

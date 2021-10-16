@@ -1,0 +1,256 @@
+---
+title: 'Linear Models - A Primer'
+subtitle: 'Classical Statistics and Machine Learning Varieties'
+date: "7/26/2020"
+output: 
+  html_document:
+    theme: readable
+bibliography: ["master_bib.bib"]
+biblio-style: "apalike"
+link-citations: true
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.showtext = TRUE, fig.align = 'center')
+```
+
+```{r}
+
+source("presentation_objects.R")
+
+model_essence_lcase <- tolower(model_essence)
+
+```
+
+**Key Takeaways**
+
+- A linear model -- a "line of best fit" --
+  _estimates_ the _true_ relationship between predictors and an outcome. 
+
+- Linear models come in classical statistics or machine learning varieties.
+
+- To learn about linear models' relative performance/behavior,
+  we use controlled experiments, powered by computer simulation.
+
+
+
+&nbsp;  
+&nbsp; 
+
+
+# A Linear Model is a "Line of Best Fit"
+
+A linear model is a line of best fit,
+relating a predictor (_x_) and an outcome (_y_).
+Your eyes likely anticipate this line before it's drawn. 
+Formally, a linear model is `r model_essence_lcase`. 
+The method extends naturally to analyze multiple predictors of an outcome.
+
+Some hypothetical data illustrate the idea:
+
+```{r}
+  p_ex1
+```
+
+
+
+
+
+
+&nbsp;  
+&nbsp; 
+
+# A Linear Model Estimates an Unknown _True_ Relationship
+
+Fundamentally, a linear model _estimates_
+the _true_ relationship between predictor(s) (_x_) and an outcome (_y_). 
+In reality, we lack absolute certainty about the _true_ relationship: 
+other relevant factors vary and add random noise to the observed outcome. 
+We use available data to -- in the lingo -- make _inferences_ about the _true_ relationship.
+
+```{r}
+  p_ex1_true
+```
+
+Our critical thinking deepens
+when we distinguish between (a) the _true_ _x-y_ relationship 
+and (b) the statistically _estimated_ _x-y_ relationship. 
+The distinction provokes a crucial question: 
+how well does a statistical _estimate_ approximate the _true_ relationship? 
+
+Thinking in this way also provides the basis
+for controlled experiments in future work. 
+Essentially, we use the computer to construct a world in which 
+we know the _true_ relationship between predictor(s) and an outcome. 
+With this "answer key" in hand,
+we're able to clearly understand different models' relative performance and behavior.
+
+
+
+
+
+
+
+
+
+
+&nbsp;  
+&nbsp; 
+
+# Linear Models Come in Classical Statistics or Machine Learning Varieties
+
+Both classical statistics and machine learning disciplines 
+propose techniques for linear model estimation. 
+They possess key similarities as well as differences.
+
+```{r}
+#for format='markdown', use older style 'add_footnote'
+tbl_lm_varieties %>% 
+  kable(caption = "Linear Model Characteristics by Discipline") %>% 
+  kable_styling() %>% 
+  footnote(general = footnote_src, general_title = "")
+```
+
+Machine learning's increased flexibility creates 
+exciting automation opportunities. One sacrifice, though,
+is classical statistics' well-defined testing 
+of whether an _x-y_ relationship differs from zero in a "statistically significant" way.
+
+
+&nbsp;
+
+
+The two disciplines' linear model techniques
+also have distinct numerical properties.
+
+```{r}
+tbl_lm_num_props %>% 
+  kable(caption = "Linear Model Numerical Properties by Discipline") %>% 
+  kable_styling() %>% 
+  footnote(general = footnote_src, general_title = "")
+```
+
+Classical statistics' single linear model formula
+implies generally high-speed calculations. 
+Machine learning calculations are relatively slower. 
+In terms of estimation behavior: (1) regardless of discipline, 
+we place more trust in a linear model estimated from 1,000 data points,
+versus 10. (2) As seen previously, classical statistics is characterized by 
+well-defined testing for "statistically significant" _x-y_ relationships.
+On the other hand, machine learning prioritizes an intense search
+for potentially predictive patterns.
+
+
+
+
+
+
+
+
+
+&nbsp;  
+&nbsp;
+
+# Controlled Experiments Enable Studies of Linear Model Behaviors
+
+How can we learn more about linear model behaviors? 
+By experiments^[Controlled experiments/simulations are called 
+Monte Carlo experiments, in the lingo.]. 
+We use the computer to construct a world in which 
+we know the _true_ relationship between predictor(s) and an outcome. 
+With this "answer key" in hand,
+we're able to clearly understand different models' relative performance and behavior.
+
+The general structure of an experiment follows.
+
+
+## One trial in an experiment is like one real data analysis project
+
+One trial is the building block of a larger experiment. 
+One trial is essentially one real-world data analysis project.
+
+```{r}
+
+  tbl_real_proj_exp_trial %>% 
+    kable(caption = "One Trial of a Controlled Numerical Experiment Parallels a Real Data Analysis Project") %>% 
+    kable_styling() %>% 
+    footnote(general = footnote_src, general_title = "")
+
+```
+
+The key difference occurs in **Step 1**. In the real world,
+data to be modeled ("training data") already exist, so they're collected. 
+In an experiment, the _true x-y_ relationship must be written in the computer program.
+With this _true_ relationship defined,
+random number generation produces data like we would observe in real life:
+predictor(s) _x_, and noisily related outcome _y_.
+
+**Step 3** model evaluation partly entails this question: 
+how well does _x_ predict _y_, among (a) the training data, 
+and (b) new, never-before-seen "test data"?
+
+
+<!-- Suppose that a computer program begins with a declaration of the _true_ relationship -->
+<!-- between _x_ and _y_. With this _true_ relationship defined, -->
+<!-- random number generation produces a dataset like we would observe in real life: -->
+<!-- _x_, and noisily related _y_. -->
+
+<!-- A well-designed experiment looks like this: -->
+
+<!--   1. Identify all factors which influence an outcome, -->
+<!--   2. Select one factor to vary randomly, and hold all other factors constant, -->
+<!--   3. Measure how your outcome responds to variation in that one factor. -->
+
+
+
+## One trial involves two distinct datasets: training and test
+
+It is worth highlighting the two distinct datasets
+involved in an experimental trial.
+
+```{r}
+
+  tbl_datasets_train_test %>% 
+    kable(caption = "Two Distinct Datasets: Training and Test") %>% 
+    kable_styling() %>% 
+    footnote(general = footnote_src, general_title = "")
+
+```
+
+Critically, training data are used to estimate^["Estimating" a model may also be called 
+"training" or "teaching" a model.] a model. 
+Therefore, any predictions made on these data have the benefit of hindsight.
+Test data, on the other hand, are never used to estimate the model. 
+So predictions on these data are true forecasts.
+
+A figurative wall separates the training and test datasets.
+
+```{r fig.cap = 'Inspired by [@ESL].'}
+
+  #NEED single quotes for proper include_graphics call with Hugo rmd!
+  if (exists("publish_blog")) {
+    knitr::include_graphics('/images/graphic_train_test_split.png', error = FALSE)
+  } else knitr::include_graphics('images/graphic_train_test_split.png')
+```
+
+
+
+## Repeating many trials averages out random chance results
+
+An experiment repeats many trials,
+to average out results due to random chance. 
+Then, robust takeaways about model behavior become clearer.
+To be explicit, what components vary trial-to-trial?
+
+- In the training data, noise that muddies _y_
+- In the test data, both _x_ and _y_
+
+
+
+***
+
+&nbsp;  
+&nbsp;
+
+# References

@@ -1,0 +1,3 @@
+Characteristic,Training Data,Test Data
+Used to estimate the model?,Yes,No
+Nature of associated model predictions,Explaining the past,Forecasting the future

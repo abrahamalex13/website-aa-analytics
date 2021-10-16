@@ -1,0 +1,3 @@
+Characteristic,Classical Statistics Variety,Machine Learning Variety
+Essence,"A rule by which _x_ predicts _y_, minimizing error","A rule by which _x_ predicts _y_, minimizing error _plus_ a measure of model flexibility"
+Typical goal,Test whether a relationship between _x_ and _y_ truly exists,Automated search for best potential predictors of _y_

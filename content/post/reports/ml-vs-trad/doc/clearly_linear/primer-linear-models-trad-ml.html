@@ -1,0 +1,383 @@
+---
+title: 'Linear Models - A Primer'
+subtitle: 'Classical Statistics and Machine Learning Varieties'
+date: "7/26/2020"
+output: 
+  html_document:
+    theme: readable
+bibliography: ["master_bib.bib"]
+biblio-style: "apalike"
+link-citations: true
+---
+
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<p><strong>Key Takeaways</strong></p>
+<ul>
+<li><p>A linear model – a “line of best fit” –
+<em>estimates</em> the <em>true</em> relationship between predictors and an outcome.</p></li>
+<li><p>Linear models come in classical statistics or machine learning varieties.</p></li>
+<li><p>To learn about linear models’ relative performance/behavior,
+we use controlled experiments, powered by computer simulation.</p></li>
+</ul>
+<p> <br />
+ </p>
+<div id="a-linear-model-is-a-line-of-best-fit" class="section level1">
+<h1>A Linear Model is a “Line of Best Fit”</h1>
+<p>A linear model is a line of best fit,
+relating a predictor (<em>x</em>) and an outcome (<em>y</em>).
+Your eyes likely anticipate this line before it’s drawn.
+Formally, a linear model is a rule by which <em>x</em> predicts <em>y</em>, minimizing error.
+The method extends naturally to analyze multiple predictors of an outcome.</p>
+<p>Some hypothetical data illustrate the idea:</p>
+<p><img src="/post/reports/ml-vs-trad/doc/clearly_linear/primer-linear-models-trad-ml_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p> <br />
+ </p>
+</div>
+<div id="a-linear-model-estimates-an-unknown-true-relationship" class="section level1">
+<h1>A Linear Model Estimates an Unknown <em>True</em> Relationship</h1>
+<p>Fundamentally, a linear model <em>estimates</em>
+the <em>true</em> relationship between predictor(s) (<em>x</em>) and an outcome (<em>y</em>).
+In reality, we lack absolute certainty about the <em>true</em> relationship:
+other relevant factors vary and add random noise to the observed outcome.
+We use available data to – in the lingo – make <em>inferences</em> about the <em>true</em> relationship.</p>
+<p><img src="/post/reports/ml-vs-trad/doc/clearly_linear/primer-linear-models-trad-ml_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Our critical thinking deepens
+when we distinguish between (a) the <em>true</em> <em>x-y</em> relationship
+and (b) the statistically <em>estimated</em> <em>x-y</em> relationship.
+The distinction provokes a crucial question:
+how well does a statistical <em>estimate</em> approximate the <em>true</em> relationship?</p>
+<p>Thinking in this way also provides the basis
+for controlled experiments in future work.
+Essentially, we use the computer to construct a world in which
+we know the <em>true</em> relationship between predictor(s) and an outcome.
+With this “answer key” in hand,
+we’re able to clearly understand different models’ relative performance and behavior.</p>
+<p> <br />
+ </p>
+</div>
+<div id="linear-models-come-in-classical-statistics-or-machine-learning-varieties" class="section level1">
+<h1>Linear Models Come in Classical Statistics or Machine Learning Varieties</h1>
+<p>Both classical statistics and machine learning disciplines
+propose techniques for linear model estimation.
+They possess key similarities as well as differences.</p>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-4">Table 1: </span>Linear Model Characteristics by Discipline
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Characteristic
+</th>
+<th style="text-align:left;">
+Classical Statistics Variety
+</th>
+<th style="text-align:left;">
+Machine Learning Variety
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Essence
+</td>
+<td style="text-align:left;">
+A rule by which <em>x</em> predicts <em>y</em>, minimizing error
+</td>
+<td style="text-align:left;">
+A rule by which <em>x</em> predicts <em>y</em>, minimizing error <em>plus</em> a measure of model flexibility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Typical goal
+</td>
+<td style="text-align:left;">
+Test whether a relationship between <em>x</em> and <em>y</em> truly exists
+</td>
+<td style="text-align:left;">
+Automated search for best potential predictors of <em>y</em>
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<sup></sup> Source: AA Analytics.
+</td>
+</tr>
+</tfoot>
+</table>
+<p>Machine learning’s increased flexibility creates
+exciting automation opportunities. One sacrifice, though,
+is classical statistics’ well-defined testing
+of whether an <em>x-y</em> relationship differs from zero in a “statistically significant” way.</p>
+<p> </p>
+<p>The two disciplines’ linear model techniques
+also have distinct numerical properties.</p>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-5">Table 2: </span>Linear Model Numerical Properties by Discipline
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Numerical Property
+</th>
+<th style="text-align:left;">
+Classical Statistics Variety
+</th>
+<th style="text-align:left;">
+Machine Learning Variety
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Calculation formula
+</td>
+<td style="text-align:left;">
+<ul>
+<li>Well-defined
+(one formula to compute any best-fit line)
+</td>
+<td style="text-align:left;">
+<ul>
+<li>Flexible
+(no one formula minimizes prediction errors <em>plus</em> model flexibility)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Estimation behavior
+</td>
+<td style="text-align:left;">
+<ul>
+<li>Model stability improves with more data</li>
+<li>Under key assumptions, quantify closeness of <em>estimated</em> and <em>true</em> lines
+</td>
+<td style="text-align:left;">
+<ul>
+<li>Model stability improves with more data
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<sup></sup> Source: AA Analytics.
+</td>
+</tr>
+</tfoot>
+</table></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<p>Classical statistics’ single linear model formula
+implies generally high-speed calculations.
+Machine learning calculations are relatively slower.
+In terms of estimation behavior: (1) regardless of discipline,
+we place more trust in a linear model estimated from 1,000 data points,
+versus 10. (2) As seen previously, classical statistics is characterized by
+well-defined testing for “statistically significant” <em>x-y</em> relationships.
+On the other hand, machine learning prioritizes an intense search
+for potentially predictive patterns.</p>
+<p> <br />
+ </p>
+</div>
+<div id="controlled-experiments-enable-studies-of-linear-model-behaviors" class="section level1">
+<h1>Controlled Experiments Enable Studies of Linear Model Behaviors</h1>
+<p>How can we learn more about linear model behaviors?
+By experiments<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.
+We use the computer to construct a world in which
+we know the <em>true</em> relationship between predictor(s) and an outcome.
+With this “answer key” in hand,
+we’re able to clearly understand different models’ relative performance and behavior.</p>
+<p>The general structure of an experiment follows.</p>
+<div id="one-trial-in-an-experiment-is-like-one-real-data-analysis-project" class="section level2">
+<h2>One trial in an experiment is like one real data analysis project</h2>
+<p>One trial is the building block of a larger experiment.
+One trial is essentially one real-world data analysis project.</p>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-6">Table 3: </span>One Trial of a Controlled Numerical Experiment Parallels a Real Data Analysis Project
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Step
+</th>
+<th style="text-align:left;">
+Real Project
+</th>
+<th style="text-align:left;">
+Experimental Trial
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<strong>1</strong>
+</td>
+<td style="text-align:left;">
+<em>Collect</em> some data, which follows a <em>true relationship we don’t know</em>.
+</td>
+<td style="text-align:left;">
+<em>Generate</em> some data, which follows a <em>true relationship we do know</em>.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<strong>2</strong>
+</td>
+<td style="text-align:left;">
+Estimate linear model(s) from ‘training data’ in (1)
+</td>
+<td style="text-align:left;">
+Estimate linear model(s) from ‘training data’ in (1)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<strong>3</strong>
+</td>
+<td style="text-align:left;">
+Evaluate estimated models
+</td>
+<td style="text-align:left;">
+Evaluate estimated models
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<sup></sup> Source: AA Analytics.
+</td>
+</tr>
+</tfoot>
+</table>
+<p>The key difference occurs in <strong>Step 1</strong>. In the real world,
+data to be modeled (“training data”) already exist, so they’re collected.
+In an experiment, the <em>true x-y</em> relationship must be written in the computer program.
+With this <em>true</em> relationship defined,
+random number generation produces data like we would observe in real life:
+predictor(s) <em>x</em>, and noisily related outcome <em>y</em>.</p>
+<p><strong>Step 3</strong> model evaluation partly entails this question:
+how well does <em>x</em> predict <em>y</em>, among (a) the training data,
+and (b) new, never-before-seen “test data”?</p>
+<!-- Suppose that a computer program begins with a declaration of the _true_ relationship -->
+<!-- between _x_ and _y_. With this _true_ relationship defined, -->
+<!-- random number generation produces a dataset like we would observe in real life: -->
+<!-- _x_, and noisily related _y_. -->
+<!-- A well-designed experiment looks like this: -->
+<!--   1. Identify all factors which influence an outcome, -->
+<!--   2. Select one factor to vary randomly, and hold all other factors constant, -->
+<!--   3. Measure how your outcome responds to variation in that one factor. -->
+</div>
+<div id="one-trial-involves-two-distinct-datasets-training-and-test" class="section level2">
+<h2>One trial involves two distinct datasets: training and test</h2>
+<p>It is worth highlighting the two distinct datasets
+involved in an experimental trial.</p>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-7">Table 4: </span>Two Distinct Datasets: Training and Test
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Characteristic
+</th>
+<th style="text-align:left;">
+Training Data
+</th>
+<th style="text-align:left;">
+Test Data
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Used to estimate the model?
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+No
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Nature of associated model predictions
+</td>
+<td style="text-align:left;">
+Explaining the past
+</td>
+<td style="text-align:left;">
+Forecasting the future
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<sup></sup> Source: AA Analytics.
+</td>
+</tr>
+</tfoot>
+</table>
+<p>Critically, training data are used to estimate<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> a model.
+Therefore, any predictions made on these data have the benefit of hindsight.
+Test data, on the other hand, are never used to estimate the model.
+So predictions on these data are true forecasts.</p>
+<p>A figurative wall separates the training and test datasets.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-8"></span>
+<img src="images/graphic_train_test_split.PNG" alt="Inspired by [@ESL]." width="830" />
+<p class="caption">
+Figure 1: Inspired by <span class="citation">(Hastie <a href="#ref-ESL" role="doc-biblioref">2017</a>)</span>.
+</p>
+</div>
+</div>
+<div id="repeating-many-trials-averages-out-random-chance-results" class="section level2">
+<h2>Repeating many trials averages out random chance results</h2>
+<p>An experiment repeats many trials,
+to average out results due to random chance.
+Then, robust takeaways about model behavior become clearer.
+To be explicit, what components vary trial-to-trial?</p>
+<ul>
+<li>In the training data, noise that muddies <em>y</em></li>
+<li>In the test data, both <em>x</em> and <em>y</em></li>
+</ul>
+<hr />
+<p> <br />
+ </p>
+</div>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1>References</h1>
+<div id="refs" class="references">
+<div id="ref-ESL">
+<p>Hastie, Trevor; Robert Tibshirani; Jerome Friedman. 2017. <em>The Elements of Statistical Learning</em>.</p>
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Controlled experiments/simulations are called
+Monte Carlo experiments, in the lingo.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>“Estimating” a model may also be called
+“training” or “teaching” a model.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>

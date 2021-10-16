@@ -1,0 +1,4 @@
+Step,Real Project,Experimental Trial
+**1**,"*Collect* some data, which follows a *true relationship we don't know*.","_Generate_ some data, which follows a _true relationship we do know_."
+**2**,Estimate linear model(s) from 'training data' in (1),Estimate linear model(s) from 'training data' in (1)
+**3**,Evaluate estimated models,Evaluate estimated models
