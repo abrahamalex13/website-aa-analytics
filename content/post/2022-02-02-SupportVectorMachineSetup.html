@@ -1,0 +1,131 @@
+---
+title: "Support Vector Machines: Start with the Optimal Separating Hyperplane"
+author: "Alex Abraham"
+date: 2022-02-02
+categories: ["linear algebra", "machine learning", "optimization"]
+tags: ["linear algebra", "machine learning", "optimization"]
+biblio-style: "apalike"
+link-citations: true
+---
+
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+
+
+<p>What is the support vector machine classifier? A practical extension of an ideal classification rule – where the ideal case achieves zero prediction errors, but the extension must compromise via minimal error. The literature calls that ideal classification rule, the “optimal separating hyperplane.” This optimal separating hyperplane must be understood first, before extending to the support vector machine.</p>
+<p>In this post, I establish context for the support vector machine’s optimization problem, which I initially find non-intuitive. I essentially share my “margin notes” for <em>The Elements of Statistical Learning</em> Section 4.5.</p>
+<div id="visualize-an-example-problem" class="section level1">
+<h1>Visualize an Example Problem</h1>
+<p>Consider a fundamental example problem. We possess a dataset where each observation has:</p>
+<ul>
+<li>Two features, <span class="math inline">\((X_1, X_2)\)</span>, and</li>
+<li>A class label: +1 or -1.</li>
+</ul>
+<p>Our objective is to describe a boundary which “optimally” separates the two classes’ data points. A “decision boundary” arises, as side-of-boundary decides a data point’s class prediction. Your intuition correctly suggests that, an optimal decision boundary keeps far-as-possible from plotted data points. Using new vocabulary, we may call data points’ distance-from-boundary, <em>margin</em>. So a maximum-margin boundary is optimal.</p>
+<p>Now invoke a major assumption about the observed data: class labels may be perfectly predicted, by a decision boundary with linear functional form<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. This special decision boundary is the “optimal separating hyperplane.”</p>
+<p>In the following visual, your eyes properly estimate the horizontal axis as the optimal separating hyperplane.</p>
+<div class="figure"><span id="fig:unnamed-chunk-2"></span>
+<img src="/images/optimal_separating_hyperplane/visualize_example.jpg" alt="Visualize the optimal separating hyperplane problem."  />
+<p class="caption">
+Figure 1: Visualize the optimal separating hyperplane problem.
+</p>
+</div>
+</div>
+<div id="derive-the-optimal-separating-hyperplane" class="section level1">
+<h1>Derive the Optimal Separating Hyperplane</h1>
+<p>Let’s derive that special decision boundary which is the optimal separating hyperplane.</p>
+<div id="calculate-data-points-distance-from-plane" class="section level2">
+<h2>Calculate Data Points’ Distance-From-Plane</h2>
+<p>We must first calculate each data point’s distance-from-plane. This distance calculation follows from a remarkable fact. <strong>A data point’s scaled distance-from-plane computes by simply plugging into the plane function.</strong> A step-by-step derivation follows.</p>
+<p>Point-to-plane distance computes via classic linear algebra procedure:</p>
+<ol style="list-style-type: decimal">
+<li><p>Identify a length-one vector perpendicular to the plane – a unit normal vector.</p></li>
+<li><p>Project the point-to-plane vector onto that unit normal vector.</p></li>
+</ol>
+<p>Now, consider the example problem at hand. Remarkably, using problem definitions and some quick operations, we carry out steps (1) and (2).</p>
+<p>Start by specifying the plane function, and moving all X inputs to the right-hand side. Writing the multiplication in matrix form generalizes to arbitrarily many X variables.</p>
+<div class="figure"><span id="fig:unnamed-chunk-3"></span>
+<img src="/images/optimal_separating_hyperplane/general_plane_function.jpg" alt="Generalize the plane function, to have arbitrarily many X variables."  />
+<p class="caption">
+Figure 2: Generalize the plane function, to have arbitrarily many X variables.
+</p>
+</div>
+<p>To obtain a unit normal vector for the plane, work toward a statement of this object’s definition, by applying operations. Evaluate the function at two points and subtract. From that expression, linear algebra definitions highlight the unit normal vector.</p>
+<div class="figure"><span id="fig:unnamed-chunk-4"></span>
+<img src="/images/optimal_separating_hyperplane/hyperplane_unit_normal.jpg" alt="Derive a unit normal vector, using the plane function and linear algebra definitions."  />
+<p class="caption">
+Figure 3: Derive a unit normal vector, using the plane function and linear algebra definitions.
+</p>
+</div>
+<p>All inputs have been collected to compute point-to-plane distance. Follow the projection formula, and then make substitutions, so it no longer requires an actual point on the plane.</p>
+<p><span class="math display">\[
+  D = (\frac{\beta}{||\beta||})^T (X - X_0)
+\]</span></p>
+<p><span class="math display">\[
+  D = (\frac{1}{||\beta||}) (\beta^T X - \beta^T X_0)
+\]</span></p>
+<p><span class="math display">\[
+  \text{Recall: } 0 = \beta_0 + \beta^T X
+\]</span></p>
+<p><span class="math display">\[
+  \implies D = (\frac{1}{||\beta||}) (\beta^T X + (\beta_0))
+\]</span></p>
+<p><span class="math display">\[
+  \implies D = (\frac{1}{||\beta||}) f(X)
+\]</span></p>
+<p>(Above statements adapted from <em>Elements of Statistical Learning 4.40</em>).</p>
+<p><strong>Using the function which describes the hyperplane decision boundary, we obtain a data point’s scaled distance-from-plane, simply by plugging in predictor values.</strong></p>
+</div>
+<div id="calculate-optimal-separating-hyperplane" class="section level2">
+<h2>Calculate Optimal Separating Hyperplane</h2>
+<p>The optimal separating hyperplane entails function parameter values – those which enforce data points’ correct classification, and maximize their distance-from-plane (“margin”).</p>
+<p>Make an initial statement of the optimization problem, adding one caveat to enforce unique solution:</p>
+<p><span class="math display">\[
+  \text{Definitions: } M = \text{margin}, y_i = \text{class label} \{-1, +1\}
+\]</span></p>
+<p><span class="math display">\[
+  \text{Optimize: }
+\]</span></p>
+<p><span class="math display">\[
+  \text{max}_{\beta, \beta_0, ||\beta|| = 1} M
+\]</span></p>
+<p><span class="math display">\[
+  \text{subject to } y_i(x_i^T \beta + \beta_0) \geq M, i = 1, 2, ..., M
+\]</span></p>
+<p>(Above statements adapted from <em>Elements of Statistical Learning 4.45</em>).</p>
+<p>As <span class="math inline">\(\beta\)</span> primarily convey the plane’s <em>direction</em>, scaling can produce arbitrarily many solutions. So unit-scaling enforces a unique solution. The “subject to” constraint ensures, for each data point: correct class prediction (negative times negative, or positive times positive), and distance-from-plane (margin) of at least <em>M</em>.</p>
+<p>Notice how the constraint set may generalize beyond <span class="math inline">\(||\beta||=1\)</span>. Use our earlier expression for a data point’s distance-from-plane:</p>
+<p><span class="math display">\[
+  \text{Recall: } D = (\frac{1}{||\beta||}) (\beta^T X + (\beta_0))
+\]</span></p>
+<p><span class="math display">\[
+  \text{Re-write constraint: } (\frac{1}{||\beta||}) y_i (x_i^T \beta + \beta_0) \geq M
+\]</span></p>
+<p>(Above statements adapted from <em>Elements of Statistical Learning 4.46</em>).</p>
+<p>Continue simplifying. Continue with the scale-invariance of a solving <span class="math inline">\(\beta\)</span>, and strategically choose a <span class="math inline">\(\beta\)</span> magnitude:</p>
+<p><span class="math display">\[
+  \text{Declare: } ||\beta|| = 1/M
+\]</span></p>
+<p><span class="math display">\[
+  \text{Re-write constraint: } y_i (x_i^T \beta + \beta_0) \geq 1
+\]</span></p>
+<p>(Above statements adapted from <em>Elements of Statistical Learning 4.47</em>).</p>
+<p>Finally, the original optimization problem may be re-written. With the above declaration, minimum <span class="math inline">\(\beta\)</span> magnitude achieves maximum margin.</p>
+<p><span class="math display">\[
+  \text{min}_{\beta, \beta_0} \frac{1}{2} ||\beta||^2
+\]</span></p>
+<p><span class="math display">\[
+  \text{subject to } y_i (x_i^T \beta + \beta_0) \geq 1, i = 1, 2, ..., N
+\]</span></p>
+<p>(Above statements adapted from <em>Elements of Statistical Learning 4.48</em>).</p>
+<p>Ultimately, between the decision boundary and surrounding data points, there’s “an empty slab or margin […] of thickness 1/<span class="math inline">\(||\beta||\)</span>” (<em>ESL</em>). Again in line with intuition, optimal <span class="math inline">\(\beta\)</span> maximizes that thickness.</p>
+<p>The final statement solves using an algorithm. Its implications deliver insight: <strong>the solving <span class="math inline">\(\beta\)</span> are determined by the hyperplane’s closest data point(s)</strong>. These should matter most, as their classification is relatively least certain.</p>
+<p>The final problem statement primes us for the support vector machine extension we’ll see in the next blog post.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Note, a non-linear decision boundary can result from a linear functional form, by properly transforming model inputs.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
