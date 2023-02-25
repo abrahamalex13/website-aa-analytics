@@ -18,7 +18,7 @@ organizations:
   url: ""
 
 # Short bio (displayed in user profile at end of posts)
-bio: Unlock underutilized data, fortify decision-making.
+bio: Improve decisions with analysis of underutilized data.
 
 interests:
 - Database Preparation
