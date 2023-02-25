@@ -69,7 +69,7 @@ I answer business questions with data.
 
 As a private sector analyst, I have:
 - estimated price elasticities
-- coded model backtesting for
+- coded model backtesting for multiple problem domains
   - loan repayment
   - home prices
 - automated workflows for production model monitoring
