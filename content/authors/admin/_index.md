@@ -67,17 +67,17 @@ user_groups:
 
 I answer business questions with data.
 
-As a private sector analyst, 
-I've estimated price elasticities,
-and coded backtests for models of
-loan repayment and home prices.
-I've also automated workflows to 
-monitor production model accuracy.
+As a private sector analyst, I have:
+- estimated price elasticities
+- coded model backtesting for
+  - loan repayment
+  - home prices
+- automated workflows for production model monitoring
 
-At the Federal Reserve:
-- I coded backtests of job growth forecasting models.
-- I analyzed firm-level information from internal and external databases. 
-- I delivered project presentations and published reports available online.
+At the Federal Reserve, I:
+- coded backtests of job growth forecasting models
+- analyzed firm-level information from internal and external databases
+- delivered project presentations and published reports available online
 
 As I've learned about statistical methods in the office,
 I also studied them through Texas A&M.
