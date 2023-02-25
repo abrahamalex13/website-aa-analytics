@@ -21,11 +21,10 @@ organizations:
 bio: Improve decisions with analysis of underutilized data.
 
 interests:
-- Database Preparation
-- Automated Database Monitoring/Reporting
 - Data Visualization
 - Statistical Modeling
 - Forecasting and Prediction
+- Analytics Engineering
 
 education:
   courses:
