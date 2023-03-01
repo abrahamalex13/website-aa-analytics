@@ -1,5 +1,23 @@
+---
+author: "Alex Abraham"
+jobtitle: "Applied Statistician"
+address: "alex@alextabraham.com | 412-398-0129 | Dallas, TX"
+web: "www.alextabraham.com"
+github: "abrahamalex13"
+
+output: 
+  pdf_document:
+    template: cv-header.latex
+geometry: margin=0.5in
+spacing: single
+pagestyle: empty #no page number
+
+header-includes:
+  \usepackage{titlesec}
+---
+
 **Objective** Improve business decision-making, with underutilized data and statistical analysis.  
-**Methods** R (tidyverse), Python, SQL; Regression Analysis, Predictive Modeling (gradient boosting machines)
+**Methods** Python, SQL, R (tidyverse); Statistical Analysis, Predictive Modeling (gradient boosting machines)
 
 
 \vspace{-2truemm}
@@ -7,14 +25,22 @@
 
 ## Work Experience
 
-**Sezzle** \hfill _Feb. 2021 - Present_
+**The Home Depot** \hfill _May 2022 - Present_
+
+_Data Scientist_
+
+  - Quantify relative price elasticities for commodity products.
+
+**Sezzle** \hfill _Feb. 2021 - May 2022_
 
 _Data Analyst - Credit Strategy_
 
-  - Develop unsupervised learning algorithms for anomaly/fraud detection.
-  - Develop unsupervised and supervised customer scoring models.
-  - Develop novel credit limit assignment model, using machine learning to forecast new customers' future
-  payment performance.
+  - Developed, deployed unsupervised learning algorithms for anomaly/fraud detection.
+  - Developed unsupervised and supervised scoring models of customers' engagement, maintenance, and risk.
+  - Developed a machine learning model of credit risk, to forecast new customers' loan repayment performance. 
+  Interpreted model and recommended immediate improvements to existing credit limit model. 
+  Containerized the model pipeline.
+  
 
 
 **Bank of America** \hfill _Mar. 2020 - Feb. 2021_
@@ -33,19 +59,15 @@ _Economic Programmer/Analyst - Regional Economy Research_ \hfill _Mar. 2018 - Ma
   Examined 200 potential economic predictors using conventional time series models and machine learning algorithms.
   Recommended a simple historical average forecast strategy, based on model errors.
   - Re-built Texas monthly employment growth 'nowcasting' forecast model in R, from existing SAS code.
-  Reduced program run-time to minutes, from 4 hours originally. Adapted this approach
-  to also forecast quarterly revisions to Texas job growth.
+  Reduced program run-time to minutes, from 4 hours originally.
   - Compiled a database of select Federal Reserve branches' manufacturing survey microdata.
   - Analyzed business establishment relocations to Texas, using the National Establishments Time Series SQL database.
   Presented co-authored article to Houston Branch's Board of Directors and San Antonio Branch's banking council.
-  - Maintained and updated legacy SAS code for processing of regional economic data products.
 
 
 _Research Analyst - Regional Economy Research_ \hfill _Jan. 2017 - Mar. 2018_  
 
-  - Executed existing SAS code and wrote new R code for "At the Heart of Texas" report, an analysis
-  of employment and wages across Texas metros' major industries.
-  - Assisted in research for Bank memos to the President, FOMC briefings, 
+  - Supported research for Bank memos to the President, FOMC briefings, 
   Regional Economy magazine, and web publications.
       
 
@@ -72,4 +94,3 @@ _Co-Authored Dallas Fed Publications_
 - Texas Top-Ranked State for Firm Relocations [(link)](https://www.dallasfed.org/~/media/documents/research/swe/2018/swe1804b.pdf)
 - Gone to Texas: Migration Vital to Growth in the Lone Star State 
   [(link)](https://www.dallasfed.org/~/media/documents/research/swe/2018/swe1801b.pdf)
-- Domestic Migration to Texas Slows as National Labor Markets Tighten [(link)](https://www.dallasfed.org/research/economics/2019/0903)
