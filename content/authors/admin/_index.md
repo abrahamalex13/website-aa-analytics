@@ -68,7 +68,7 @@ user_groups:
 I answer business questions with data.
 
 As a private sector analyst, I have:
-- estimated price elasticities
+- estimated relative price elasticities
 - coded model backtesting for multiple problem domains
   - loan repayment
   - home prices
