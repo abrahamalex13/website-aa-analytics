@@ -25,7 +25,7 @@ tags: ["statistics", "drift", "hypothesis testing"]
 <p>Let’s first eyeball the extent of drift, using the entire data.
 This manual assessment helps tune an automated method for live future monitoring.</p>
 <p>The probability distribution appears (visually) similar, test versus historical:</p>
-<p><img src="images/drift/drift_viz_overall.png" style="display: block; margin: auto;" /></p>
+<p><img src="../../../../../../../../images/drift/drift_viz_overall.png" style="display: block; margin: auto;" /></p>
 <p>Without deeper domain knowledge to suggest otherwise,
 let’s adopt the ground truth of no meaningful data drift.
 The same assessment should arise from a well-tuned automated method.</p>
@@ -44,7 +44,7 @@ allowing easy comparisons.</p>
 <p>Turns out, the full test sample drifts more from historical
 than practically any reference sample under no population drift.
 Under no population drift, a sample of this size should hardly drift at all:</p>
-<p><img src="images/drift/drift_viz_boot_naive.png" style="display: block; margin: auto;" /></p>
+<p><img src="../../../../../../../../images/drift/drift_viz_boot_naive.png" style="display: block; margin: auto;" /></p>
 <p>Real, large data might be expected to technically drift–generating processes should be highly dynamic.
 This theme also appears in other statistical tests of distributions<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.
 So we must tune our method to detect <em>practically significant</em> population drift,
@@ -58,7 +58,7 @@ Among smaller data samples, we find larger drift statistics–more sensible crit
 must be visually confirmed for proper sensitivity.</p>
 <p>We tune to detect <em>practically significant</em> drift.
 The following chart shows a proposed tuning for “critical drift”:</p>
-<p><img src="images/drift/drift_viz_boot_tuned.png" style="display: block; margin: auto;" /></p>
+<p><img src="../../../../../../../../images/drift/drift_viz_boot_tuned.png" style="display: block; margin: auto;" /></p>
 <p>In live future monitoring,
 when a new sample’s drift extremity meets or exceeds above,
 we’d be automatically alerted.</p>

@@ -9,7 +9,7 @@ tags: ["statistics", "drift", "hypothesis testing"]
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, fig.align = 'center')
 
-DIR_PLOTS <- paste0("images/drift") 
+DIR_PLOTS <- paste0("/images/drift") 
 
 ```
 
@@ -39,7 +39,7 @@ This manual assessment helps tune an automated method for live future monitoring
 The probability distribution appears (visually) similar, test versus historical:
 
 ```{r}
-  knitr::include_graphics(paste0(DIR_PLOTS, "/drift_viz_overall.png"))
+  knitr::include_graphics(paste0(DIR_PLOTS, "/drift_viz_overall.png"), error=FALSE)
 ```
 
 Without deeper domain knowledge to suggest otherwise,
@@ -63,7 +63,7 @@ than practically any reference sample under no population drift.
 Under no population drift, a sample of this size should hardly drift at all:
 
 ```{r}
-  knitr::include_graphics(paste0(DIR_PLOTS, "/drift_viz_boot_naive.png"))
+  knitr::include_graphics(paste0(DIR_PLOTS, "/drift_viz_boot_naive.png"), error=FALSE)
 ```
 
 Real, large data might be expected to technically drift--generating processes should be highly dynamic.
@@ -83,7 +83,7 @@ We tune to detect _practically significant_ drift.
 The following chart shows a proposed tuning for "critical drift":
 
 ```{r}
-  knitr::include_graphics(paste0(DIR_PLOTS, "/drift_viz_boot_tuned.png"))
+  knitr::include_graphics(paste0(DIR_PLOTS, "/drift_viz_boot_tuned.png"), error=FALSE)
 ```
 
 In live future monitoring, 
