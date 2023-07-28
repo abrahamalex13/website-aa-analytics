@@ -1,0 +1,43 @@
+---
+title: "Improving Time-to-Model"
+author: "Alex Abraham"
+date: 2023-03-28
+categories: ["modeling", "pipeline", "software"]
+tags: ["modeling", "pipeline", "software"]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, fig.align = 'center')
+
+```
+
+# TL;DR
+
+I've used this solution to accelerate my own projects: one is Schoolhouse.
+
+# Problem: Cost of Baseline Model, Even with Analyst-Friendly Data
+
+Business stakeholders and data practitioners often share a pain point: the cost of reaching a baseline predictive model, even with analyst-friendly data in hand. Why? A data representation may be analyst-friendly but not model-ready. So, the analyst-friendly data need transformed to explicit model features. Those transformations are orchestrated by a _feature transforms workflow/pipeline_. 
+
+Drafting that high-level workflow can cost much of the effort in a modeling project. The workflow creation cost deconstructs into addressable components: 
+**Time cost**
+We decrease project time-to-value (Fundamentals of Data Eng) with more reuse of existing code. There's significant opportunity for more reuse of feature transforms workflow code, especially project-to-project. This high-level workflow is often re-written between projects, or even within-project--depending on gaps between R&D and software engineers. But there's a better way. 
+
+**Complexity (Technical Debt) Cost**
+Code complexity slows progress. Code complexity may be due to system design challenges: components lack orthogonal, modular nature. When it's hard to mentally model a code workflow, it's very hard to:  
+
+- Describe, debug current state 
+- Deliver improvements with confidence 
+- Inspire trust in system behavior and results 
+
+There's significant opportunity to de-couple (a) standard feature transforms workflow from (b) project-specific configuration. Further, there's significant opportunity to describe a standard workflow with loosely-coupled abstractions. Imagine a feature transforms workflow whose details are captured by key-value pairs. Imagine a workflow controlled by a few command line statements. 
+
+
+# Solution Building Blocks Lie in Software Engineering First Principles 
+
+
+
+
+# My Proposed Solution
+
+
