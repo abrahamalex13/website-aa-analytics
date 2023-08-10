@@ -1,13 +1,15 @@
 ---
 title: "Improving Time-to-Model"
 author: "Alex Abraham"
-date: 2023-03-28
+date: 2023-08-10
 categories: ["modeling", "pipeline", "software"]
 tags: ["modeling", "pipeline", "software"]
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, fig.align = 'center')
+
+DIR_PLOTS <- paste0("/images/model_flow/") 
 
 ```
 
@@ -17,27 +19,151 @@ I've used this solution to accelerate my own projects: one is Schoolhouse.
 
 # Problem: Cost of Baseline Model, Even with Analyst-Friendly Data
 
-Business stakeholders and data practitioners often share a pain point: the cost of reaching a baseline predictive model, even with analyst-friendly data in hand. Why? A data representation may be analyst-friendly but not model-ready. So, the analyst-friendly data need transformed to explicit model features. Those transformations are orchestrated by a _feature transforms workflow/pipeline_. 
+Business stakeholders and data practitioners often share a pain point: the cost of reaching a baseline predictive model, even with analyst-friendly data in hand. Why? A data representation may be analyst-friendly but not model-ready. So the analyst-friendly data need _transformed_ to explicit model features. Those transformations encapsulate within a _feature transform workflow/pipeline_.  This high-level pipeline creation can require significant effort.
 
-Drafting that high-level workflow can cost much of the effort in a modeling project. The workflow creation cost deconstructs into addressable components: 
-**Time cost**
-We decrease project time-to-value (Fundamentals of Data Eng) with more reuse of existing code. There's significant opportunity for more reuse of feature transforms workflow code, especially project-to-project. This high-level workflow is often re-written between projects, or even within-project--depending on gaps between R&D and software engineers. But there's a better way. 
+The pipeline creation cost breaks into manageable pieces.
 
-**Complexity (Technical Debt) Cost**
-Code complexity slows progress. Code complexity may be due to system design challenges: components lack orthogonal, modular nature. When it's hard to mentally model a code workflow, it's very hard to:  
+## Time Cost
+We decrease project time-to-value with more reuse of existing code. **There's significant opportunity for more reuse of feature transform pipeline code, especially project-to-project.** Code re-writes are common between projects, or even within-project, depending on gaps between R&D and software engineers. But there's a better way. 
+
+## Complexity (Technical Debt) Cost
+Code complexity slows progress. Code complexity may be due to system design challenges: components lack orthogonal, modular nature. 
+When a code workflow becomes hard to mentally model, it's very hard to:  
 
 - Describe, debug current state 
 - Deliver improvements with confidence 
 - Inspire trust in system behavior and results 
 
-There's significant opportunity to de-couple (a) standard feature transforms workflow from (b) project-specific configuration. Further, there's significant opportunity to describe a standard workflow with loosely-coupled abstractions. Imagine a feature transforms workflow whose details are captured by key-value pairs. Imagine a workflow controlled by a few command line statements. 
+**There's significant opportunity to de-couple (a) standard transforms workflow from (b) project-specific configuration.** Imagine a feature transform pipeline described with key-value pairs, and controlled from the command line.
 
 
-# Solution Building Blocks Lie in Software Engineering First Principles 
+# To Solve, Let's Learn From Software Engineers
+
+To compose a _standardized_ feature transform pipeline, which reduces time and complexity costs (especially project-to-project), software engineering first principles help.
+
+The overall pipeline should combine small, loosely-coupled units. Then, the system is easier to follow at macro- and micro- levels. A popular data analysis system schematic carves out components that are modular and orthogonal: 
+
+```{r}
+  knitr::include_graphics(paste0(DIR_PLOTS, "ml_systems_complexity_modular.png"), error=FALSE)
+```
+SOURCE: [_Hidden Technical Debt in Machine Learning Systems_](https://proceedings.neurips.cc/paper_files/paper/2015/file/86df7dcfd896fcaf2674f757a2463eba-Paper.pdf)
+
+With regard to de-coupling of configuration and operations. Cutting-edge open source software embraces low-visual noise interfaces for behavior configuration:
+
+- `pydantic`, creator of a crisp data validation interface, was recently [backed by Sequoia](https://pydantic.dev/announcement/)
+- `dbt`, creator of [standardized patterns](https://www.getdbt.com/blog/it-s-time-for-open-source-analytics/) and tooling for data transformation 
 
 
+# Solution: Extract Workflow Configuration
+
+Ideally, many projects should leverage standard transform pipeline code, and just change a centralized configuration. **That configuration should be understandable to any interested reader.**
+
+An overall workflow configuration subdivides, into configurations of (a) source data and (b) feature transforms.
+
+## Data Sample Configuration
+
+Data are real, while models are abstractions. We must carefully describe the data used to train/fit a transforms pipeline:
+
+- From what storage source do we extract data? 
+  - In a database, which tables record inputs (X) & outcomes (Y)?
+- What filters subset the training data? Or a new test run's data?
+  - A descriptive title/tag aids understanding
+- What outcome do we seek to predict? How should its missing values be interpreted? 
+- What columns constitute data _attributes_: not-for-modeling subject identifiers, useful in exploratory analysis? 
+
+To capture all above details, we use a fun-to-read file of key-value pairs. An example follows, from baseball card valuation modeling:
+
+```
+is_training_run: true
+
+source:
+  storage_type: database
+  X: seed.trading_card_transactions_features
+  Y: seed.trading_card_transactions_value
+
+filters:
+  title: post_202304
+  time_field: id
+  time_min: 918
+  time_max: 2000
+
+filters_train:
+  title: thru_202304
+  time_field: id
+  time_min: 0
+  time_max: 917
+
+outcome_definition: 
+  title: unit_price
+  do_drop_na: true
+  fillna_value: 0
+
+dataset_attributes:
+  - id
+  - name
+```
+
+## Feature Transforms Pipeline Configuration
+
+What transformation steps will yield model-ready data, from initial (analyst-friendly) data? 
+
+- Uniquely name the pipeline. Arbitrarily many pipeline sequences could transform a dataset.
+- Name transform functions (transformers) with preset arguments.
+- Declare model features. For each,
+  - What's the data type?
+  - Which transforms apply?
+
+```
+title: narrow
 
 
-# My Proposed Solution
+transformers:
+
+  impute_numeric:
+    strategy: median
+    add_indicator: true
+
+  impute_numeric_zero:
+    strategy: constant
+    fill_value: 0
+    add_indicator: false
+
+  impute_numeric_flag:
+    strategy: most_frequent
+    add_indicator: true
+
+
+features:
+
+  print_year:
+    dtype: float
+    transforms:
+      impute_numeric:
+
+  is_base:
+    dtype: float
+    transforms:
+      impute_numeric_flag:
+
+  is_serial_numbered:
+    dtype: float
+    transforms:
+      impute_numeric_flag:
+
+  serial_numbered_to:
+    dtype: float
+    transforms:
+      impute_numeric:
+
+  is_rookie_card:
+    dtype: float
+    transforms:
+      impute_numeric_flag:
+
+  is_autographed:
+    dtype: float
+    transforms:
+      impute_numeric_flag:
+```
 
 
