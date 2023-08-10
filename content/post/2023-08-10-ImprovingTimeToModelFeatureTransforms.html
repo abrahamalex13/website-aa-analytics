@@ -1,0 +1,173 @@
+---
+title: "Improving Time-to-Model: Fast, Standard Feature Transforms"
+author: "Alex Abraham"
+date: 2023-08-10
+categories: ["modeling", "feature", "transform", "pipeline", "software"]
+tags: ["modeling", "feature", "transform", "pipeline", "software"]
+---
+
+
+
+<div id="tldr" class="section level1">
+<h1>TL;DR</h1>
+<p>Business stakeholders and data practitioners often share a pain point: the cost of reaching a baseline predictive model, even with analyst-friendly data in hand. That’s partly because, analyst-friendly data likely need <em>transformed</em> to model-ready data. Transformations encapsulate within a <em>feature transform workflow/pipeline</em>. This high-level pipeline creation can require major effort.</p>
+<p>To reduce typical time and complexity costs of workflow creation, I propose a <em>standardized</em> procedure, which draws on software engineering first principles. The solution de-couples standard operations from project-specific configuration. That configuration should be understandable to any motivated reader, including C-Suite leaders.</p>
+<p>After writing a few easy-to-read configuration files, get model-ready data with just one command line statement:</p>
+<pre><code>python -m src.features.main</code></pre>
+<p>With this system, I accelerate my own modeling projects. This system was inspired from work on a product concept for <a href="https://twitter.com/SchoolhouseData">baseball analytics and trading card valuation</a>.</p>
+<p>I welcome your feedback on the implementation’s <a href="https://github.com/abrahamalex13/model-flow">current state</a>.</p>
+</div>
+<div id="problem-cost-of-baseline-model-even-with-analyst-friendly-data" class="section level1">
+<h1>Problem: Cost of Baseline Model, Even with Analyst-Friendly Data</h1>
+<p>Business stakeholders and data practitioners often share a pain point: the cost of reaching a baseline predictive model, even with analyst-friendly data in hand. Why? A data representation may be analyst-friendly but not model-ready. So the analyst-friendly data need <em>transformed</em> to explicit model features. Those transformations encapsulate within a <em>feature transform workflow/pipeline</em>. This high-level pipeline creation can require major effort.</p>
+<p>The pipeline creation cost breaks into addressable pieces.</p>
+<div id="time-cost" class="section level2">
+<h2>Time Cost</h2>
+<p>We decrease project time-to-value with more reuse of existing code. <strong>There’s significant opportunity for more reuse of feature transform pipeline code, especially project-to-project.</strong> Code re-writes are common between projects, or even within-project, depending on gaps between R&amp;D and software engineers. But there’s a better way.</p>
+</div>
+<div id="complexity-technical-debt-cost" class="section level2">
+<h2>Complexity (Technical Debt) Cost</h2>
+<p>Code complexity slows progress. Code complexity may be due to system design challenges: components lack orthogonal, modular nature.
+When a code workflow becomes hard to mentally model, it’s very hard to:</p>
+<ul>
+<li>Describe, debug current state</li>
+<li>Deliver improvements with confidence</li>
+<li>Inspire trust in system behavior and results</li>
+</ul>
+<p><strong>There’s significant opportunity to de-couple (a) standard transforms workflow from (b) project-specific configuration.</strong> Imagine a feature transform pipeline described with key-value pairs, and controlled from the command line.</p>
+</div>
+</div>
+<div id="to-solve-lets-learn-from-software-engineers" class="section level1">
+<h1>To Solve, Let’s Learn From Software Engineers</h1>
+<p>To compose a <em>standardized</em> feature transform pipeline, which reduces time and complexity costs (especially project-to-project), software engineering first principles help.</p>
+<p>The overall pipeline should combine small, loosely-coupled units. Then, the system is easier to follow at macro- and micro- levels. A popular data analysis system schematic carves out components that are modular and orthogonal:</p>
+<p><img src="../../../../../../images/model_flow/ml_systems_complexity_modular.png" style="display: block; margin: auto;" />
+SOURCE: <a href="https://proceedings.neurips.cc/paper_files/paper/2015/file/86df7dcfd896fcaf2674f757a2463eba-Paper.pdf"><em>Hidden Technical Debt in Machine Learning Systems</em></a></p>
+<p>With regard to de-coupling of configuration and operations. Cutting-edge open source software embraces low-visual noise interfaces for configuration:</p>
+<ul>
+<li><code>pydantic</code>, creator of a crisp data validation interface, was recently <a href="https://pydantic.dev/announcement/">backed by Sequoia</a></li>
+<li><code>dbt</code>, creator of <a href="https://www.getdbt.com/blog/it-s-time-for-open-source-analytics/">standardized patterns</a> and tooling for data transformation</li>
+</ul>
+</div>
+<div id="solution-runs-with-one-command" class="section level1">
+<h1>Solution Runs with One Command</h1>
+<p>With a pipeline configuration declared, get model-ready data with just one command line statement:</p>
+<pre><code>python -m src.features.main</code></pre>
+<p>To be sure, several implementation scripts allow this to work. I welcome your feedback on the implementation’s <a href="https://github.com/abrahamalex13/model-flow">current state</a>.</p>
+<p>So, how do we declare the configuration?</p>
+</div>
+<div id="solution-includes-easy-to-read-workflow-configuration" class="section level1">
+<h1>Solution Includes Easy-to-Read Workflow Configuration</h1>
+<p>Ideally, many projects should leverage standard transform pipeline code, with each just updating a configuration. <strong>That configuration should be understandable to any motivated reader, including C-Suite leaders.</strong></p>
+<p>An overall workflow configuration subdivides, into configurations of (a) source data and (b) feature transforms.</p>
+<div id="data-sample-configuration" class="section level2">
+<h2>Data Sample Configuration</h2>
+<p><strong>When we analysts receive the question, “what data were used in this analysis?” – one configuration file should quickly confirm.</strong> After all, data are real, while models are abstractions. A derived feature transform pipeline depends critically upon data sample details:</p>
+<ul>
+<li>On this process run, will we re-derive/re-train the pipeline?</li>
+<li>From what storage source do we extract data?
+<ul>
+<li>In a database, which tables record inputs (X) &amp; outcomes (Y)?</li>
+</ul></li>
+<li>What filters subset data which trained this pipeline? Or, what filters subset a new test run’s data?
+<ul>
+<li>A descriptive title/tag aids understanding</li>
+</ul></li>
+<li>What outcome do we seek to predict? How should we treat its missing values?</li>
+<li>What columns constitute data <em>attributes</em>: not-for-modeling subject identifiers, useful in exploratory analysis?</li>
+</ul>
+<p>To centrally capture those details, we use a fun-to-read file of key-value pairs. An example follows, from baseball card valuation modeling:</p>
+<pre><code>is_training_run: true
+
+source:
+  storage_type: database
+  X: seed.trading_card_transactions_features
+  Y: seed.trading_card_transactions_value
+
+filters:
+  title: post_202304
+  time_field: id
+  time_min: 918
+  time_max: 2000
+
+filters_train:
+  title: thru_202304
+  time_field: id
+  time_min: 0
+  time_max: 917
+
+outcome_definition: 
+  title: unit_price
+  do_drop_na: true
+  fillna_value: 0
+
+dataset_attributes:
+  - id
+  - name</code></pre>
+</div>
+<div id="feature-transforms-configuration" class="section level2">
+<h2>Feature Transforms Configuration</h2>
+<p><strong>When we analysts ask the question, “what transformation steps yield my model-ready data?” – one configuration file should quickly confirm. There’s a better way than each time combing through scripts. Moreover, an analyst adds high value by determining smart data transformations. Operations code is more a liability than an asset.</strong></p>
+<p>Feature transforms may be sufficiently configured in one file:</p>
+<ul>
+<li>Uniquely name the workflow. (Arbitrarily many workflows could transform a dataset.)</li>
+<li>Declare transform functions (“transformers”) with preset arguments.</li>
+<li>Declare model features. For each,
+<ul>
+<li>What’s the data type?</li>
+<li>Which transforms apply?</li>
+</ul></li>
+</ul>
+<p>Another example from baseball card valuation modeling:</p>
+<pre><code>title: narrow
+
+
+transformers:
+
+  impute_numeric:
+    strategy: median
+    add_indicator: true
+
+  impute_numeric_zero:
+    strategy: constant
+    fill_value: 0
+    add_indicator: false
+
+  impute_numeric_flag:
+    strategy: most_frequent
+    add_indicator: true
+
+
+features:
+
+  print_year:
+    dtype: float
+    transforms:
+      impute_numeric:
+
+  is_base:
+    dtype: float
+    transforms:
+      impute_numeric_flag:
+
+  is_serial_numbered:
+    dtype: float
+    transforms:
+      impute_numeric_flag:
+
+  serial_numbered_to:
+    dtype: float
+    transforms:
+      impute_numeric:
+
+  is_rookie_card:
+    dtype: float
+    transforms:
+      impute_numeric_flag:
+
+  is_autographed:
+    dtype: float
+    transforms:
+      impute_numeric_flag:</code></pre>
+</div>
+</div>
