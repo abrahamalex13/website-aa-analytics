@@ -1,9 +1,9 @@
 ---
-title: "Improving Time-to-Model"
+title: "Improving Time-to-Model: Fast, Standard Feature Transforms"
 author: "Alex Abraham"
 date: 2023-08-10
-categories: ["modeling", "pipeline", "software"]
-tags: ["modeling", "pipeline", "software"]
+categories: ["modeling", "feature", "transform", "pipeline", "software"]
+tags: ["modeling", "feature", "transform", "pipeline", "software"]
 ---
 
 ```{r setup, include=FALSE}
