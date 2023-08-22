@@ -1,0 +1,22 @@
+---
+title: "dbt Sharpens Data Science"
+author: "Alex Abraham"
+date: 2023-08-16
+categories: ["software", "engineering", "data", "pipeline", "analytics"]
+tags: ["software", "engineering", "data", "pipeline", "analytics"]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, fig.align = 'center')
+
+slides_url <- "https://alextabraham.com/talk/dbt_sharpens_data_science.html#1"
+
+```
+
+For full screen, see [here](`r slides_url`).
+
+Alternatively, embedded view:
+
+```{r}
+    knitr::include_url(slides_url)
+```
